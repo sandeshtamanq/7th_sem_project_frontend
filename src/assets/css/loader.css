@@ -1,0 +1,51 @@
+#loader {
+  position: relative;
+}
+#loader::before,
+#loader::after {
+  content: "";
+  display: table-cell;
+  height: 10px;
+  width: 10px;
+  position: relative;
+  border-radius: 50%;
+  left: 50%;
+  /* mix-blend-mode: darken; */
+}
+
+#loader::before {
+  background: #9139b9;
+  animation: before 800ms infinite;
+}
+#loader::after {
+  background: #c74343;
+  animation: after 800ms infinite;
+}
+
+@keyframes before {
+  0% {
+    z-index: 2;
+    left: 0;
+  }
+  50% {
+    left: 50%;
+  }
+
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes after {
+  0% {
+    left: 0%;
+  }
+
+  50% {
+    left: -50%;
+  }
+  100% {
+    z-index: 1;
+    left: 0;
+  }
+}
