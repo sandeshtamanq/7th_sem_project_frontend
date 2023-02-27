@@ -11,17 +11,17 @@ const Sidebar = () => {
     },
     {
       name: "Users",
-      path: "/user",
+      path: "/admin/user",
       icon: <AiOutlineUser />,
     },
     {
       name: "Products",
-      path: "/product",
+      path: "/admin/product",
       icon: <AiOutlineShopping />,
     },
     {
       name: "Brand",
-      path: "/brand",
+      path: "/admin/brand",
       icon: <MdOutlineCategory />,
     },
   ];

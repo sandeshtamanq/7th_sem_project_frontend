@@ -9,6 +9,7 @@ import ProtectedRoutes from "./components/common/ProtectedRoutes";
 import Register from "./components/auth/Register";
 import Users from "./components/admin/users/Users";
 import Product from "./components/admin/products/Product";
+import ProductPage from "./components/web/products/Product";
 import { ToastContainer } from "react-toastify";
 import Brand from "./components/admin/brand/Brand";
 
@@ -20,6 +21,14 @@ function App() {
       element: (
         <WebLayout>
           <Home />
+        </WebLayout>
+      ),
+    },
+    {
+      path: "/products",
+      element: (
+        <WebLayout>
+          <ProductPage />
         </WebLayout>
       ),
     },
@@ -46,7 +55,7 @@ function App() {
       ),
     },
     {
-      path: "/user",
+      path: "/admin/user",
       element: (
         <Layout>
           <Users />
@@ -54,7 +63,7 @@ function App() {
       ),
     },
     {
-      path: "/product",
+      path: "/admin/product",
       element: (
         <Layout>
           <Product />
@@ -62,7 +71,7 @@ function App() {
       ),
     },
     {
-      path: "/brand",
+      path: "/admin/brand",
       element: (
         <Layout>
           <Brand />

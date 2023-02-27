@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BiLogOutCircle } from "react-icons/bi";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const Navbar = () => {
@@ -12,7 +13,10 @@ const Navbar = () => {
   const { user } = useAuthContext();
   return (
     <div className="bg-[#202020] border-b border-gray-500 px-4 py-3 text-white flex items-center justify-between w-full">
-      <div>Welcome</div>
+      <div>
+        {/* <div>Welcome</div> */}
+        <Link to="/">Shop</Link>
+      </div>
       <div className="text-center">{currentTime}</div>
       <div className="flex items-center gap-x-4">
         <div className="bg-secondary rounded-full  px-[10px] py-[3px]">{user?.firstName[0]}</div>

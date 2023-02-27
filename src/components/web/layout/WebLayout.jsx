@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar from "../static/Navbar";
 import { CiUser } from "react-icons/ci";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import Root from "../../../Root";
 import DropDown from "../../common/DropDown";
+import Footer from "../static/Footer";
 const WebLayout = ({ children }) => {
   const { user, isLoggedIn } = useAuthContext();
   return (
@@ -16,6 +17,11 @@ const WebLayout = ({ children }) => {
           {isLoggedIn ? (
             <div className="flex items-center justify-end">
               <h6 className="">{`${user.firstName}`}</h6>
+              {user.role === "admin" && (
+                <Link to="/dashboard" className="mx-4 font-bold">
+                  dashboard
+                </Link>
+              )}
               <DropDown></DropDown>
             </div>
           ) : (
@@ -38,6 +44,7 @@ const WebLayout = ({ children }) => {
         <Navbar />
         <div>{children}</div>
       </div>
+      <Footer />
     </Root>
   );
 };
