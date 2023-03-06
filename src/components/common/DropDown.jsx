@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useAuthContext } from "../../hooks/useAuthContext";
-const DropDown = ({ menuItems }) => {
+const DropDown = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const { dispatch } = useAuthContext();
   return (
     <div className="w-1/2 m-auto  text-center">
       {open && <div className="h-screen w-[99.98%] absolute top-0 left-0 " onClick={() => setOpen((open) => !open)}></div>}
@@ -12,35 +11,7 @@ const DropDown = ({ menuItems }) => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
-      {open && (
-        <div className="min-h-[2rem] w-[200px] right-[73px] rounded-md absolute z-1 bg-slate-50 top-[4.5%] shadow-md border  ">
-          {/* {countries.map((country, index) => {
-          return (
-            <div key={index}>
-              <div
-                className="cursor-pointer"
-                onClick={() => handleClick(country.iso3, country.name)}
-              >
-                {country.name}
-              </div>
-            </div>
-          );
-        })} */}
-          <div className="">
-            <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
-              <BiLogOutCircle />
-              <p
-                onClick={() => {
-                  localStorage.clear();
-                  dispatch({ type: "LOGOUT" });
-                }}
-              >
-                logout
-              </p>
-            </li>
-          </div>
-        </div>
-      )}
+      {open && <>{children}</>}
     </div>
   );
 };

@@ -34,9 +34,6 @@ const ProductsContainer = () => {
         <div className="flex items-center gap-x-5">
           <ProductCardSkeleton />
           <ProductCardSkeleton />
-          <ProductCardSkeleton />
-          <ProductCardSkeleton />
-          <ProductCardSkeleton />
         </div>
       )}
     </div>
