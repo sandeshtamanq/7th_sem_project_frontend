@@ -9,9 +9,9 @@ const ProductsContainer = () => {
   const fetchProducts = async () => {
     try {
       setFetching(true);
-      const response = await getProducts();
+      const response = await getProducts(20);
       if (response.status === 200) {
-        setProducts(response.data);
+        setProducts(response.data.items);
         setFetching(false);
       }
     } catch (err) {

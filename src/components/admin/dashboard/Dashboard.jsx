@@ -16,21 +16,19 @@ function Dashboard() {
   const [users, setUsers] = useState({
     users: [],
     admins: [],
-    totalUser: 0,
   });
   const fetchUsers = async () => {
     const response = await getUsers();
     if (response.status === 200) {
-      const users = response.data[0].filter((user) => {
+      const users = response.data.items?.filter((user) => {
         return user.role === "user";
       });
-      const admins = response.data[0].filter((user) => {
+      const admins = response.data.items?.filter((user) => {
         return user.role === "admin";
       });
       setUsers({
         users,
         admins,
-        totalUser: response.data[1],
       });
     }
 

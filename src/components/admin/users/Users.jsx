@@ -8,7 +8,7 @@ const Users = () => {
   const fetchUsers = async () => {
     const response = await getUsers();
     if (response.status === 200) {
-      setUserLists(response.data[0]);
+      setUserLists(response.data.items);
     }
   };
   useEffect(() => {

@@ -29,7 +29,7 @@ const Brand = () => {
   const fetchBrands = async () => {
     const response = await getBrands();
     if (response.status === 200) {
-      setBrands(response.data);
+      setBrands(response.data.items);
     }
   };
 

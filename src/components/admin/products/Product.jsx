@@ -10,10 +10,10 @@ const Product = () => {
   const [open, setOpen] = useState(false);
   const headerData = ["Name", "Description", "Price", "Amount", "Brand", "Created At", "Image", "Action"];
   const fetchProducts = async () => {
-    const response = await getProducts();
+    const response = await getProducts(10);
     console.log(response);
     if (response.status === 200) {
-      setProducts(response.data);
+      setProducts(response.data.items);
     }
   };
   useEffect(() => {
