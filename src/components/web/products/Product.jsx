@@ -4,7 +4,7 @@ import FilterBar from "./integrate/FilterBar";
 
 const ProductPage = () => {
   return (
-    <div className="w-[60%] m-auto">
+    <div className="w-[90%] m-auto">
       <div className="">
         <FilterBar />
       </div>
