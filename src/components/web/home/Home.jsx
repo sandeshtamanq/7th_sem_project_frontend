@@ -17,7 +17,7 @@ const Home = () => {
         />
       </div>
       <HomeInfo />
-      <div className="w-[90%] xl:w-[60%] m-auto">
+      <div className="w-[90%] m-auto">
         <ProductsContainer />
       </div>
     </div>
