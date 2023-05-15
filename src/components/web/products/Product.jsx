@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductsContainer from "../home/integrate/ProductsContainer";
 import FilterBar from "./integrate/FilterBar";
 
 const ProductPage = () => {
   return (
-    <div className="flex justify-between">
-      <div className="flex-1">
+    <div className="w-[60%] m-auto">
+      <div className="">
         <FilterBar />
       </div>
       <div className="flex-2">

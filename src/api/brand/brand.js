@@ -8,3 +8,12 @@ export const getBrands = async () => {
     return err.response;
   }
 };
+
+export const getAllBrands = async () => {
+  try {
+    const response = await api.get("/brand/getAll");
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// export const baseURL = "http://localhost:3000/api";
-export const baseURL = "https://seventhsem.onrender.com/api";
+export const baseURL = "http://localhost:3000/api";
+// export const baseURL = "https://seventhsem.onrender.com/api";
 
 const api = axios.create({
   baseURL,
@@ -16,7 +16,7 @@ api.interceptors.request.use(
     }
     // config.headers["Access-Control-Allow-Origin"] = "*";
     // config.headers["Access-Control-Allow-Credentials"] = "true";
-    config.headers["Content-Type"] = "application/json";
+    // config.headers["Content-Type"] = "application/json";
     config.headers["accept"] = "application/json";
 
     return config;

@@ -5,6 +5,7 @@ import Table from "../static/Table";
 import Modal from "../../common/Modal";
 import AddProduct from "./integrate/AddProduct";
 import { deleteProduct } from "../../../api/products/deleteProduct";
+import { Link } from "react-router-dom";
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
@@ -26,9 +27,9 @@ const Product = () => {
 
   return (
     <>
-      <div className="bg-secondary text-white p-1 cursor-pointer text-xs rounded-full inline-block my-2" onClick={() => setOpen(true)}>
+      <Link to="/admin/product/add" className="bg-secondary text-white p-1 cursor-pointer text-xs rounded-full inline-block my-2">
         Add Product
-      </div>
+      </Link>
       <div>
         {products.length > 0 ? (
           <Table headerData={headerData}>

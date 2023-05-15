@@ -6,7 +6,7 @@ const Modal = ({ children, show, onClose, width }) => {
       <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto" onClose={onClose}>
         <div className="min-h-screen w-full px-4 text-center">
           <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
-            <Dialog.Overlay className="fixed inset-0 rounded-md bg-slate-400 bg-opacity-40" />
+            <Dialog.Overlay className="fixed inset-0 rounded-md  bg-slate-400 bg-opacity-40" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -25,7 +25,7 @@ const Modal = ({ children, show, onClose, width }) => {
             <div
               className={`inline-block  ${
                 width ? `${width} overflow-scroll scrollbar-hide` : "w-full max-w-md"
-              } my-8 overflow-hidden text-left align-middle transition-all transform bg-white rounded-md shadow-xl`}
+              } my-8 overflow-hidden text-left align-middle transition-all w-[100rem] transform bg-white rounded-md shadow-xl`}
             >
               {children}
             </div>

@@ -12,6 +12,9 @@ import Product from "./components/admin/products/Product";
 import ProductPage from "./components/web/products/Product";
 import { ToastContainer } from "react-toastify";
 import Brand from "./components/admin/brand/Brand";
+import ProductDetail from "./components/web/products/ProductDetail";
+import CartList from "./components/web/cart/CartList";
+import AddProduct from "./components/admin/products/integrate/AddProduct";
 
 function App() {
   const { isLoggedIn } = useAuthContext();
@@ -29,6 +32,22 @@ function App() {
       element: (
         <WebLayout>
           <ProductPage />
+        </WebLayout>
+      ),
+    },
+    {
+      path: "/product/:id",
+      element: (
+        <WebLayout>
+          <ProductDetail />
+        </WebLayout>
+      ),
+    },
+    {
+      path: "/cart",
+      element: (
+        <WebLayout>
+          <CartList />
         </WebLayout>
       ),
     },
@@ -58,7 +77,9 @@ function App() {
       path: "/admin/user",
       element: (
         <Layout>
-          <Users />
+          <ProtectedRoutes>
+            <Users />
+          </ProtectedRoutes>
         </Layout>
       ),
     },
@@ -66,7 +87,19 @@ function App() {
       path: "/admin/product",
       element: (
         <Layout>
-          <Product />
+          <ProtectedRoutes>
+            <Product />
+          </ProtectedRoutes>
+        </Layout>
+      ),
+    },
+    {
+      path: "/admin/product/add",
+      element: (
+        <Layout>
+          <ProtectedRoutes>
+            <AddProduct />
+          </ProtectedRoutes>
         </Layout>
       ),
     },
@@ -74,13 +107,15 @@ function App() {
       path: "/admin/brand",
       element: (
         <Layout>
-          <Brand />
+          <ProtectedRoutes>
+            <Brand />
+          </ProtectedRoutes>
         </Layout>
       ),
     },
   ]);
   return (
-    <div className="font-display">
+    <div className="font-display bg-gray-50">
       <ToastContainer />
       <RouterProvider router={router}></RouterProvider>
     </div>

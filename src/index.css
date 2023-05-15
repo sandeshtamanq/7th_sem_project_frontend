@@ -41,3 +41,14 @@
     @apply px-5 py-2 2xl:py-2 w-full rounded-lg 2xl:rounded-xl text-black border placeholder-gray-500  mt-2 text-sm 2xl:text-base;
   }
 }
+
+.flex-2 {
+  flex: 2;
+}
+.flex-3 {
+  flex: 3;
+}
+
+.ql-container {
+  @apply h-[20rem];
+}

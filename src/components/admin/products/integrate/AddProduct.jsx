@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import DropDown from "../../../common/DropDown";
-import { getBrands } from "../../../../api/brand/brand";
+import { getAllBrands } from "../../../../api/brand/brand";
 import { addProducts } from "../../../../api/products/addProducts";
+import RichTextEditor from "../../../common/RichTextEditor";
 const AddProduct = () => {
   const [brands, setBrands] = useState([]);
+  const [productDescription, setProductDescription] = useState("");
   const [productDetail, setProductDetail] = useState({
     productName: "",
-    productDescription: "",
     productPrice: "",
     productAmount: "",
     brandName: "Select One",
   });
   const [productImage, setProductImage] = useState("");
   const fetchBrands = async () => {
-    const response = await getBrands();
+    const response = await getAllBrands();
     if (response.status === 200) {
       setBrands(response.data);
     }
@@ -38,7 +36,6 @@ const AddProduct = () => {
   const postProduct = async (formData) => {
     const response = await addProducts(formData);
     if (response.status === 201) {
-      console.log(response);
     }
   };
 
@@ -47,7 +44,7 @@ const AddProduct = () => {
     console.log(productImage);
     const formData = new FormData();
     formData.append("productName", productDetail.productName);
-    formData.append("productDescription", productDetail.productDescription);
+    formData.append("productDescription", productDescription);
     formData.append("productPrice", productDetail.productPrice);
     formData.append("productAmount", productDetail.productAmount);
     formData.append("productImage", productImage);
@@ -89,7 +86,7 @@ const AddProduct = () => {
         </div>
         <div>
           <label htmlFor="productDescription">Product Description</label>
-          <input type="text" name="productDescription" value={productDetail.productDescription} onChange={changeHandler} id="productDescription" placeholder="Enter Product Description" />
+          <RichTextEditor onChange={setProductDescription} value={productDescription} />
         </div>
         <div>
           <label htmlFor="productPrice">Product Price</label>

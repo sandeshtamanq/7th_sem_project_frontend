@@ -10,6 +10,7 @@ export const register = async (registerCredentials, setLoading) => {
     return response;
   } catch (err) {
     setLoading(false);
+    if (err?.response?.status === 400) return;
     errorToast("Something went wrong");
     return err.response;
   }

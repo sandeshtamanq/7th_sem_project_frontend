@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCardSkeleton from "../../skeletons/ProductCardSkeleton";
 import HomeInfo from "./integrate/HomeInfo";
 import ProductsContainer from "./integrate/ProductsContainer";
@@ -17,7 +17,7 @@ const Home = () => {
         />
       </div>
       <HomeInfo />
-      <div className="w-[60%] m-auto">
+      <div className="w-[90%] xl:w-[60%] m-auto">
         <ProductsContainer />
       </div>
     </div>

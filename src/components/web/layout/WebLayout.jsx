@@ -8,10 +8,14 @@ import Root from "../../../Root";
 import DropDown from "../../common/DropDown";
 import Footer from "../static/Footer";
 import { BiLogOutCircle } from "react-icons/bi";
+import Cart from "../static/Cart";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../../redux/reducers/cartReducer";
 const WebLayout = ({ children }) => {
+  const navigate = useNavigate();
   const { user, isLoggedIn } = useAuthContext();
-  const { dispatch } = useAuthContext();
-
+  const { dispatch: authDispatch } = useAuthContext();
+  const dispatch = useDispatch();
   return (
     <Root>
       <div>
@@ -20,6 +24,9 @@ const WebLayout = ({ children }) => {
           {isLoggedIn ? (
             <div className="flex items-center justify-end">
               <h6 className="">{`${user.firstName}`}</h6>
+              <Link to="/cart">
+                <Cart />
+              </Link>
               {user.role === "admin" && (
                 <Link to="/dashboard" className="mx-4 font-bold">
                   dashboard
@@ -33,7 +40,9 @@ const WebLayout = ({ children }) => {
                       <p
                         onClick={() => {
                           localStorage.clear();
-                          dispatch({ type: "LOGOUT" });
+                          authDispatch({ type: "LOGOUT" });
+                          dispatch(clearCart());
+                          navigate("/");
                         }}
                       >
                         logout
