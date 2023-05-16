@@ -5,7 +5,7 @@ import ProductCardSkeleton from "../../../skeletons/ProductCardSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsAction } from "../../../../redux/reducers/productReducer";
 
-const ProductsContainer = ({}) => {
+const ProductsContainer = ({ limit, view }) => {
   const [fetching, setFetching] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
@@ -14,7 +14,7 @@ const ProductsContainer = ({}) => {
   const fetchProducts = async () => {
     try {
       setFetching(true);
-      const response = await getProducts(1, pageNumber);
+      const response = await getProducts(limit, pageNumber);
       if (response.status === 200) {
         dispatch(fetchProductsAction(response.data.items));
         setFetching(false);
@@ -44,51 +44,47 @@ const ProductsContainer = ({}) => {
           </div>
         )}
       </div>
-      <div className="flex justify-end mt-5">
-        <nav>
-          <ul className="flex -space-x-px">
-            <li
-              onClick={() => {
-                if (pageNumber <= 1) return;
-                setPageNumber((preval) => preval - 1);
-              }}
-            >
-              <div className="px-3 py-2 block ml-0  leading-tight  border  rounded-l-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Previous</div>
-            </li>
-
-            {(() => {
-              let li = [];
-              for (let i = 1; i <= totalPages; i++) {
-                li.push(
-                  <li key={i} onClick={() => setPageNumber(i)}>
-                    <div
-                      className={`px-3 py-2 ${pageNumber === i ? "bg-gray-700 text-white" : "bg-gray-800 text-gray-400"} leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
-                    >
-                      {i}
-                    </div>
-                  </li>
-                );
-              }
-              return li;
-            })()}
-            {/* {totalPages.map((page) => (
-              <li key={page}>
-                <a href="#" className="px-3 py-2 block leading-tight  border  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
-                  {page}
-                </a>
+      {view === "product" && (
+        <div className="flex justify-end mt-5">
+          <nav>
+            <ul className="flex -space-x-px">
+              <li
+                onClick={() => {
+                  if (pageNumber <= 1) return;
+                  setPageNumber((preval) => preval - 1);
+                }}
+              >
+                <div className="px-3 py-2 block ml-0  leading-tight  border border-gray-400 rounded-l-lg  bg-gray-300 border-gray-200 text-gray-400 hover:bg-gray-500 hover:text-white">Previous</div>
               </li>
-            ))} */}
-            <li
-              onClick={() => {
-                if (pageNumber === totalPages) return;
-                setPageNumber((preval) => preval + 1);
-              }}
-            >
-              <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Next</div>
-            </li>
-          </ul>
-        </nav>
-      </div>
+
+              {(() => {
+                let li = [];
+                for (let i = 1; i <= totalPages; i++) {
+                  li.push(
+                    <li key={i} onClick={() => setPageNumber(i)}>
+                      <div
+                        className={`px-3 py-2 ${pageNumber === i ? "bg-gray-700 text-white" : "bg-gray-800 text-gray-400"} leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
+                      >
+                        {i}
+                      </div>
+                    </li>
+                  );
+                }
+                return li;
+              })()}
+
+              <li
+                onClick={() => {
+                  if (pageNumber === totalPages) return;
+                  setPageNumber((preval) => preval + 1);
+                }}
+              >
+                <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Next</div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
     </>
   );
 };

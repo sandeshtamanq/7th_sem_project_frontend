@@ -18,7 +18,7 @@ const Home = () => {
       </div>
       <HomeInfo />
       <div className="w-[90%] m-auto">
-        <ProductsContainer />
+        <ProductsContainer view="home" limit={20} />
       </div>
     </div>
   );

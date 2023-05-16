@@ -12,7 +12,7 @@ const Product = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const headerData = ["Name", "Description", "Price", "Amount", "Brand", "Created At", "Image", "Action"];
   const fetchProducts = async () => {
-    const response = await getProducts(1, pageNumber);
+    const response = await getProducts(10, pageNumber);
     if (response.status === 200) {
       setProducts(response.data.items);
       setTotalPages(response.data.meta.totalPages);
