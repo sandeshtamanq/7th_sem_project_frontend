@@ -20,6 +20,7 @@ const ClientOrder = () => {
   return (
     <>
       {loading && <div>fetching...</div>}
+      {orders.length < 1 && <div>No order to show</div>}
       {orders.map((order) => {
         return <div></div>;
       })}
