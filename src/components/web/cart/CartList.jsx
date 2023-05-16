@@ -3,10 +3,16 @@ import { getCartItems } from "../../../api/cart/getCartItems";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { makeOrder } from "../../../api/order/makeOrder";
+import { errorToast, successToast } from "../../common/toastify";
+import Loader from "../../common/Loader";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../../redux/reducers/cartReducer";
 
 const CartList = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
+  const dispatch = useDispatch();
   const { isLoggedIn } = useAuthContext();
   const navigate = useNavigate();
   const fetchCartItems = async () => {
@@ -18,10 +24,22 @@ const CartList = () => {
   };
 
   const postOrder = async (cartItems, subTotal) => {
+    setLoading(true);
     const res = await makeOrder(cartItems, subTotal);
-    if (res.status === 200) {
-      console.log(res);
+    if (res.status === 201) {
+      setLoading(false);
+      successToast("Order placed successfully");
+      dispatch(clearCart());
+      fetchCartItems();
+      return;
     }
+    if (res.status === 400) {
+      errorToast("Please add product");
+      return;
+    }
+
+    setLoading(false);
+    errorToast("Something went wrong");
   };
 
   useEffect(() => {
@@ -30,6 +48,7 @@ const CartList = () => {
     }
     fetchCartItems();
   }, []);
+
   return (
     <div className="flex items-center p-32">
       <div className="space-y-10  flex-3">
@@ -65,7 +84,7 @@ const CartList = () => {
         <h2 className="text-3xl">Order Summary:</h2>
         <div className="flex items-center justify-between">
           <div>Sub Total</div>
-          <div>{subTotal}</div>
+          <div>Rs. {subTotal}</div>
         </div>
         <div className="flex items-center justify-between">
           <div>Discount</div>
@@ -73,12 +92,18 @@ const CartList = () => {
         </div>
         <div className="flex items-center justify-between" L>
           <div>Total:</div>
-          <div>{subTotal}</div>
+          <div>Rs.{subTotal}</div>
         </div>
         <div>
-          <button onClick={() => postOrder(cartItems, subTotal)} className="bg-secondary px-4 py-2 w-full text-slate-50 hover:shadow-md mt-4 flex items-center justify-center rounded-md" type="submit">
-            CheckOut
-          </button>
+          {cartItems.length >= 1 && (
+            <button
+              onClick={() => postOrder(cartItems, subTotal)}
+              className="bg-secondary px-4 py-2 w-full text-slate-50 hover:shadow-md mt-4 flex items-center justify-center rounded-md"
+              type="submit"
+            >
+              {loading ? <Loader /> : "CheckOut"}
+            </button>
+          )}
         </div>
       </div>
     </div>

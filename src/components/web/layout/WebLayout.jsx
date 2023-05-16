@@ -11,6 +11,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import Cart from "../static/Cart";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../../redux/reducers/cartReducer";
+import { FaEye } from "react-icons/fa";
 const WebLayout = ({ children }) => {
   const navigate = useNavigate();
   const { user, isLoggedIn } = useAuthContext();
@@ -20,7 +21,13 @@ const WebLayout = ({ children }) => {
     <Root>
       <div>
         <div className="flex justify-between items-center px-20 bg-slate-50">
-          <p className="border border-gray-300 px-4 py-2">admin@gmail.com</p>
+          <Link to="/" className="border border-gray-300 px-4 py-2">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/mobile-shop-7540e.appspot.com/o/logo%2F346108848_589192399976400_8431081845564942233_n.png?alt=media&token=7862804c-8759-423b-82ac-56df792ad9e9"
+              alt=""
+              className="h-10"
+            />
+          </Link>
           {isLoggedIn ? (
             <div className="flex items-center justify-end">
               <h6 className="">{`${user.firstName}`}</h6>
@@ -35,6 +42,10 @@ const WebLayout = ({ children }) => {
               <DropDown>
                 <div className="min-h-[2rem] w-[200px] right-[73px] rounded-md absolute z-[10] bg-slate-50 top-[4.5%] shadow-md border  ">
                   <div className="">
+                    <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
+                      <FaEye />
+                      <Link to="/orders">View Order</Link>
+                    </li>
                     <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
                       <BiLogOutCircle />
                       <p

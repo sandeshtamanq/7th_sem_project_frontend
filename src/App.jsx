@@ -18,6 +18,7 @@ import AddProduct from "./components/admin/products/integrate/AddProduct";
 import Order from "./components/admin/order/Order";
 import ContactUs from "./components/web/contact-us/ContactUs";
 import AboutUs from "./components/web/about-us/AboutUs";
+import ClientOrder from "./components/web/order/Order";
 
 function App() {
   const { isLoggedIn } = useAuthContext();
@@ -89,6 +90,14 @@ function App() {
       element: (
         <WebLayout>
           <AboutUs />
+        </WebLayout>
+      ),
+    },
+    {
+      path: "/orders",
+      element: (
+        <WebLayout>
+          <ClientOrder />
         </WebLayout>
       ),
     },

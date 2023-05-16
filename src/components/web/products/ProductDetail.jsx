@@ -8,11 +8,13 @@ import { addToCart } from "../../../api/cart/addToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartProduct } from "../../../redux/reducers/cartReducer";
 import { fetchProductDetailAction, updateProductAmount, updateProductDetailAction } from "../../../redux/reducers/productDetailReducer";
+import Loader from "../../common/Loader";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [adding, setAdding] = useState(false);
   const dispatch = useDispatch();
   const [productDetail, setProductDetail] = useState({});
   const { title, brand, productAmount, price, description, image, reviews } = useSelector((state) => state.productDetail);
@@ -39,7 +41,7 @@ const ProductDetail = () => {
       errorToast("please select at least one");
       return;
     }
-    addToCart(productId, amount);
+    addToCart(productId, amount, setAdding);
     dispatch(addCartProduct(amount));
   };
   const { isLoggedIn } = useAuthContext();
@@ -61,7 +63,7 @@ const ProductDetail = () => {
                   <div>{brand}</div>
                 </div>
                 <div>Rs.{price}</div>
-                {productAmount > 0 ? <div>Quantity: {productAmount - 1}</div> : <div className="text-red-500">Out of stock</div>}
+                {productAmount > 0 ? <div>Quantity: {productAmount}</div> : <div className="text-red-500">Out of stock</div>}
                 {isLoggedIn && (
                   <div className="flex items-center gap-x-2">
                     <div className="flex items-center gap-x-2">
@@ -101,10 +103,11 @@ const ProductDetail = () => {
                           return;
                         }
                         dispatch(updateProductDetailAction(amount));
+                        setAmount(0);
                         addInCart(id, amount);
                       }}
                     >
-                      Add To Cart
+                      {adding ? <Loader /> : "Add To Cart"}
                     </div>
                   </div>
                 )}
