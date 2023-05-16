@@ -61,10 +61,10 @@ const AddProduct = () => {
         <div className="relative flex items-center my-4">
           <div>{productDetail.brandName}</div>
           <DropDown>
-            <div className="min-h-[2rem] w-[200px] right-[200px] rounded-md absolute bg-slate-50 top-[100%] shadow-md border  ">
+            <div className="h-[20rem] w-[200px] z-[100] left-0 rounded-md absolute overflow-y-scroll bg-slate-50 top-[100%] shadow-md border  ">
               {brands.map((brand, index) => {
                 return (
-                  <div key={index} className="z-[100]">
+                  <div key={index} className="h-[2rem]">
                     <div
                       className="hover:bg-gray-200 cursor-pointer rounded-md"
                       onClick={() => {
