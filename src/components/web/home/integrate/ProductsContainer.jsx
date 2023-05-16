@@ -7,15 +7,18 @@ import { fetchProductsAction } from "../../../../redux/reducers/productReducer";
 
 const ProductsContainer = ({}) => {
   const [fetching, setFetching] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const { products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const fetchProducts = async () => {
     try {
       setFetching(true);
-      const response = await getProducts(20);
+      const response = await getProducts(1, pageNumber);
       if (response.status === 200) {
         dispatch(fetchProductsAction(response.data.items));
         setFetching(false);
+        setTotalPages(response.data.meta.totalPages);
       }
     } catch (err) {
       setFetching(false);
@@ -24,22 +27,69 @@ const ProductsContainer = ({}) => {
   };
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [pageNumber]);
   return (
-    <div className="grid grid-cols-4 my-2 gap-4">
-      {!fetching ? (
-        <>
-          {products?.map((product, index) => (
-            <ProductCard key={index} {...product} />
-          ))}
-        </>
-      ) : (
-        <div className="flex items-center gap-x-5">
-          <ProductCardSkeleton />
-          <ProductCardSkeleton />
-        </div>
-      )}
-    </div>
+    <>
+      <div className="grid grid-cols-4 my-2 gap-4">
+        {!fetching ? (
+          <>
+            {products?.map((product, index) => (
+              <ProductCard key={index} {...product} />
+            ))}
+          </>
+        ) : (
+          <div className="flex items-center gap-x-5">
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </div>
+        )}
+      </div>
+      <div className="flex justify-end mt-5">
+        <nav>
+          <ul className="flex -space-x-px">
+            <li
+              onClick={() => {
+                if (pageNumber <= 1) return;
+                setPageNumber((preval) => preval - 1);
+              }}
+            >
+              <div className="px-3 py-2 block ml-0  leading-tight  border  rounded-l-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Previous</div>
+            </li>
+
+            {(() => {
+              let li = [];
+              for (let i = 1; i <= totalPages; i++) {
+                li.push(
+                  <li key={i} onClick={() => setPageNumber(i)}>
+                    <div
+                      className={`px-3 py-2 ${pageNumber === i ? "bg-gray-700 text-white" : "bg-gray-800 text-gray-400"} leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
+                    >
+                      {i}
+                    </div>
+                  </li>
+                );
+              }
+              return li;
+            })()}
+            {/* {totalPages.map((page) => (
+              <li key={page}>
+                <a href="#" className="px-3 py-2 block leading-tight  border  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
+                  {page}
+                </a>
+              </li>
+            ))} */}
+            <li
+              onClick={() => {
+                if (pageNumber === totalPages) return;
+                setPageNumber((preval) => preval + 1);
+              }}
+            >
+              <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Next</div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </>
   );
 };
 

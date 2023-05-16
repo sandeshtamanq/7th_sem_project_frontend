@@ -15,6 +15,7 @@ import Brand from "./components/admin/brand/Brand";
 import ProductDetail from "./components/web/products/ProductDetail";
 import CartList from "./components/web/cart/CartList";
 import AddProduct from "./components/admin/products/integrate/AddProduct";
+import Order from "./components/admin/order/Order";
 
 function App() {
   const { isLoggedIn } = useAuthContext();
@@ -109,6 +110,16 @@ function App() {
         <Layout>
           <ProtectedRoutes>
             <Brand />
+          </ProtectedRoutes>
+        </Layout>
+      ),
+    },
+    {
+      path: "/admin/orders",
+      element: (
+        <Layout>
+          <ProtectedRoutes>
+            <Order />
           </ProtectedRoutes>
         </Layout>
       ),

@@ -1,8 +1,8 @@
 import api from "../api";
 
-export const getBrands = async () => {
+export const getBrands = async (pageNumber) => {
   try {
-    const response = await api.get("/brand?page=1&limit=10");
+    const response = await api.get(`/brand?page=${pageNumber}&limit=10`);
     return response;
   } catch (err) {
     return err.response;

@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MdOutlineDashboard, MdOutlineCategory } from "react-icons/md";
 import { AiOutlineUser, AiOutlineShopping } from "react-icons/ai";
+import { BsFillBagFill } from "react-icons/bs";
 const Sidebar = () => {
   const sidebarMenu = [
     {
@@ -23,6 +24,11 @@ const Sidebar = () => {
       name: "Brand",
       path: "/admin/brand",
       icon: <MdOutlineCategory />,
+    },
+    {
+      name: "Order",
+      path: "/admin/orders",
+      icon: <BsFillBagFill />,
     },
   ];
   return (

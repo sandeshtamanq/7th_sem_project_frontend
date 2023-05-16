@@ -8,22 +8,25 @@ import { deleteProduct } from "../../../api/products/deleteProduct";
 import { Link } from "react-router-dom";
 const Product = () => {
   const [products, setProducts] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const headerData = ["Name", "Description", "Price", "Amount", "Brand", "Created At", "Image", "Action"];
   const fetchProducts = async () => {
-    const response = await getProducts(10);
-    console.log(response);
+    const response = await getProducts(1, pageNumber);
     if (response.status === 200) {
       setProducts(response.data.items);
+      setTotalPages(response.data.meta.totalPages);
     }
   };
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [pageNumber]);
 
   const removeProduct = (id) => {
     deleteProduct(id, fetchProducts);
   };
+
+  console.log(products);
 
   return (
     <>
@@ -36,7 +39,7 @@ const Product = () => {
             {products.map(({ productName, productDescription, productPrice, productAmount, brandName, createdAt, productImage, id }, index) => (
               <tr className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"} key={index}>
                 <td className="px-6 py-4">{productName}</td>
-                <td className="px-6 py-4">{productDescription}</td>
+                <td className="px-6 py-4">{productDescription.slice(0, 30) + "..."}</td>
                 <td className="px-6 py-4">{`Rs.${productPrice}`}</td>
                 <td className="px-6 py-4">{productAmount}</td>
                 <td className="px-6 py-4">{brandName?.brandName}</td>
@@ -59,9 +62,49 @@ const Product = () => {
           <TableSkeleton />
         )}
       </div>
-      <Modal show={open} onClose={() => setOpen(false)}>
-        <AddProduct />
-      </Modal>
+      <div className="flex justify-end mt-5">
+        <nav>
+          <ul className="flex -space-x-px">
+            {pageNumber > 1 && (
+              <li
+                onClick={() => {
+                  if (pageNumber <= 1) return;
+                  setPageNumber((preval) => preval - 1);
+                }}
+              >
+                <div className="px-3 py-2 block ml-0  leading-tight  border  rounded-l-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Previous</div>
+              </li>
+            )}
+
+            {(() => {
+              let li = [];
+              for (let i = 1; i <= totalPages; i++) {
+                li.push(
+                  <li key={i} onClick={() => setPageNumber(i)}>
+                    <div
+                      className={`px-3 py-2 ${pageNumber === i ? "bg-gray-700 text-white" : "bg-gray-800 text-gray-400"} leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
+                    >
+                      {i}
+                    </div>
+                  </li>
+                );
+              }
+              return li;
+            })()}
+
+            {pageNumber < totalPages && (
+              <li
+                onClick={() => {
+                  if (pageNumber === totalPages) return;
+                  setPageNumber((preval) => preval + 1);
+                }}
+              >
+                <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Next</div>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </div>
     </>
   );
 };
