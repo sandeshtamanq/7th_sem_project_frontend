@@ -54,7 +54,7 @@ const ProductsContainer = ({ limit, view }) => {
                   setPageNumber((preval) => preval - 1);
                 }}
               >
-                <div className="px-3 py-2 block ml-0  leading-tight  border border-gray-400 rounded-l-lg  bg-gray-300 border-gray-200 text-gray-400 hover:bg-gray-500 hover:text-white">Previous</div>
+                <div className="px-3 py-2 block ml-0  leading-tight  border border-gray-400 rounded-l-lg  bg-gray-300  text-gray-400 hover:bg-gray-500 hover:text-white">Previous</div>
               </li>
 
               {(() => {

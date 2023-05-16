@@ -49,11 +49,11 @@ const ProductDetail = () => {
         <div className="h-[20rem]">loading ...</div>
       ) : (
         <>
-          <div className="flex items-center bg-white w-[90%] m-auto rounded-md">
+          <div className="flex items-center bg-white w-[98%] gap-x-4 m-auto rounded-md">
             <div className="flex-1">
               <img src={image} className="h-[40rem]" alt="" />
             </div>
-            <div className="flex-1 h-[20rem]">
+            <div className="flex-1 ">
               <div className="flex flex-col justify-between h-full">
                 <h1>{title}</h1>
                 <div className="flex items-center">
