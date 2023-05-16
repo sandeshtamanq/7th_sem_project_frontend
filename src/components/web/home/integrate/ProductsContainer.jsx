@@ -54,7 +54,7 @@ const ProductsContainer = ({ limit, view }) => {
                   setPageNumber((preval) => preval - 1);
                 }}
               >
-                <div className="px-3 py-2 block ml-0  leading-tight  border border-gray-400 rounded-l-lg  bg-gray-300  text-gray-400 hover:bg-gray-500 hover:text-white">Previous</div>
+                <div className="px-3 py-2 block ml-0  leading-tight  border border-gray-400 rounded-l-lg  bg-gray-200  text-gray-600 hover:bg-gray-100 ">Previous</div>
               </li>
 
               {(() => {
@@ -62,11 +62,7 @@ const ProductsContainer = ({ limit, view }) => {
                 for (let i = 1; i <= totalPages; i++) {
                   li.push(
                     <li key={i} onClick={() => setPageNumber(i)}>
-                      <div
-                        className={`px-3 py-2 ${pageNumber === i ? "bg-gray-700 text-white" : "bg-gray-800 text-gray-400"} leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
-                      >
-                        {i}
-                      </div>
+                      <div className={`px-3 py-2 ${pageNumber === i ? "bg-gray-400 " : "bg-gray-200 "} leading-tight  border text-gray-600   border-gray-400  hover:bg-gray-100 `}>{i}</div>
                     </li>
                   );
                 }
@@ -79,7 +75,7 @@ const ProductsContainer = ({ limit, view }) => {
                   setPageNumber((preval) => preval + 1);
                 }}
               >
-                <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Next</div>
+                <div className="px-3 py-2 block leading-tight  border  rounded-r-lg border-gray-400  bg-gray-200  text-gray-600 hover:bg-gray-100 ">Next</div>
               </li>
             </ul>
           </nav>

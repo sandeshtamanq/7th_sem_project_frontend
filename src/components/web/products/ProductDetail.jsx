@@ -51,7 +51,7 @@ const ProductDetail = () => {
         <>
           <div className="flex items-center bg-white w-[98%] gap-x-4 m-auto rounded-md">
             <div className="flex-1">
-              <img src={image} className="h-[40rem]" alt="" />
+              <img src={image} className="h-[40rem] object-cover" alt="" />
             </div>
             <div className="flex-1 ">
               <div className="flex flex-col justify-between h-full">
