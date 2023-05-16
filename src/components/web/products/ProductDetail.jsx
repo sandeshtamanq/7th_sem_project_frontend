@@ -53,8 +53,8 @@ const ProductDetail = () => {
             <div className="flex-1">
               <img src={image} className="h-[40rem] object-cover" alt="" />
             </div>
-            <div className="flex-1 ">
-              <div className="flex flex-col justify-between h-full">
+            <div className="flex-1">
+              <div className="flex flex-col p-5 gap-y-5 justify-between h-full">
                 <h1>{title}</h1>
                 <div className="flex items-center">
                   <div>Brand:</div>

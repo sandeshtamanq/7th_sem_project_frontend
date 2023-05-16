@@ -9,7 +9,7 @@ const ProductPage = () => {
         <FilterBar />
       </div>
       <div className="flex-2">
-        <ProductsContainer view="product" limit={10} />
+        <ProductsContainer view="product" limit={12} />
       </div>
     </div>
   );

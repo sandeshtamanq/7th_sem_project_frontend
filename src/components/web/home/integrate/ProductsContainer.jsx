@@ -62,7 +62,7 @@ const ProductsContainer = ({ limit, view }) => {
                 for (let i = 1; i <= totalPages; i++) {
                   li.push(
                     <li key={i} onClick={() => setPageNumber(i)}>
-                      <div className={`px-3 py-2 ${pageNumber === i ? "bg-gray-400 " : "bg-gray-200 "} leading-tight  border text-gray-600   border-gray-400  hover:bg-gray-100 `}>{i}</div>
+                      <div className={`px-3 py-2 ${pageNumber === i ? "bg-secondary " : "bg-gray-200 "} leading-tight  border text-gray-600   border-gray-400  hover:bg-gray-100 `}>{i}</div>
                     </li>
                   );
                 }
