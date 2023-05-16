@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import ProductCardSkeleton from "../../skeletons/ProductCardSkeleton";
 import HomeInfo from "./integrate/HomeInfo";
 import ProductsContainer from "./integrate/ProductsContainer";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -18,7 +18,12 @@ const Home = () => {
       </div>
       <HomeInfo />
       <div className="w-[90%] m-auto">
-        <ProductsContainer view="home" limit={20} />
+        <ProductsContainer view="home" limit={8} />
+        <div className="mt-5 px-3 py-2 flex items-center justify-center">
+          <Link to="/products" className="text-center  m-auto mt-5 px-3 py-2 bg-secondary rounded-md  text-white">
+            View More
+          </Link>
+        </div>
       </div>
     </div>
   );
