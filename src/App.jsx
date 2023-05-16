@@ -16,6 +16,8 @@ import ProductDetail from "./components/web/products/ProductDetail";
 import CartList from "./components/web/cart/CartList";
 import AddProduct from "./components/admin/products/integrate/AddProduct";
 import Order from "./components/admin/order/Order";
+import ContactUs from "./components/web/contact-us/ContactUs";
+import AboutUs from "./components/web/about-us/AboutUs";
 
 function App() {
   const { isLoggedIn } = useAuthContext();
@@ -71,6 +73,22 @@ function App() {
       element: (
         <WebLayout>
           <Register />
+        </WebLayout>
+      ),
+    },
+    {
+      path: "/contact-us",
+      element: (
+        <WebLayout>
+          <ContactUs />
+        </WebLayout>
+      ),
+    },
+    {
+      path: "/about-us",
+      element: (
+        <WebLayout>
+          <AboutUs />
         </WebLayout>
       ),
     },
