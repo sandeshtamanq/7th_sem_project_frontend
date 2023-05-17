@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { postMessage } from "../../../api/contact/postMessage";
+import { successToast } from "../../common/toastify";
+import Loader from "../../common/Loader";
 
 const Contact = () => {
+  const [message, setMessage] = useState({
+    fullName: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+
+    setMessage((preval) => ({
+      ...preval,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e, message) => {
+    e.preventDefault();
+    setLoading(true);
+    const response = await postMessage(message);
+    if (response.status === 201) {
+      setLoading(false);
+      successToast("message send successfully");
+    }
+  };
   return (
     <div className="bg-white">
       <header className="">
@@ -12,7 +40,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => handleSubmit(e, message)}>
               <div className="flex flex-col">
                 <label htmlFor="name" className="mb-2 font-medium">
                   Name
@@ -20,7 +48,9 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  name="name"
+                  name="fullName"
+                  value={message.fullName}
+                  onChange={changeHandler}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 />
               </div>
@@ -32,6 +62,8 @@ const Contact = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={message.email}
+                  onChange={changeHandler}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 />
               </div>
@@ -43,14 +75,13 @@ const Contact = () => {
                   id="message"
                   name="message"
                   rows="5"
+                  value={message.message}
+                  onChange={changeHandler}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 ></textarea>
               </div>
-              <button
-                type="submit"
-                className="bg-secondary text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-              >
-                Send
+              <button type="submit" className="bg-secondary text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline">
+                {loading ? <Loader /> : "Send"}
               </button>
             </form>
           </div>

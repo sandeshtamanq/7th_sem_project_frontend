@@ -70,7 +70,7 @@ const ProductDetail = () => {
                       <div
                         className="cursor-pointer"
                         onClick={() => {
-                          if (amount < 2) {
+                          if (amount < 1) {
                             errorToast("Product must me more than one");
                             return;
                           }

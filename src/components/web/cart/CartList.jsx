@@ -7,11 +7,14 @@ import { errorToast, successToast } from "../../common/toastify";
 import Loader from "../../common/Loader";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../../redux/reducers/cartReducer";
+import CartListCard from "./integrate/CartListCard";
+import { updateCart } from "../../../api/cart/updateCart";
 
 const CartList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
+  const [hasChanged, setHasChanged] = useState(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useAuthContext();
   const navigate = useNavigate();
@@ -49,6 +52,13 @@ const CartList = () => {
     fetchCartItems();
   }, []);
 
+  const patchCart = async (id, data) => {
+    const response = await updateCart(id, data);
+    if (response.status === 200) {
+      console.log("updated");
+    }
+  };
+
   return (
     <div className="flex items-center p-32">
       <div className="space-y-10  flex-3">
@@ -58,27 +68,11 @@ const CartList = () => {
           <>
             {cartItems.map((cartItem, index) => {
               const { product, amount } = cartItem;
-              return (
-                <div key={index} className="flex items-center gap-x-4 justify-between">
-                  <div className="">
-                    <img src={product?.productImage} className="h-40 w-40 object-cover" alt="" />
-                  </div>
-                  <div className="flex-2 flex flex-col justify-between h-full">
-                    <h5>Product Name: {product.productName}</h5>
-                    <div>
-                      Brand:
-                      {product.brandName.brandName}
-                    </div>
-                  </div>
-                  <div className="flex-2">
-                    <h5>Amount: {amount}</h5>
-                    <div>Rs. {amount * product.productPrice}</div>
-                  </div>
-                </div>
-              );
+              return <CartListCard setHasChanged={setHasChanged} key={index} {...product} amount={amount} patchCart={patchCart} />;
             })}
           </>
         )}
+        {/* {hasChanged && <div className="bg-secondary inline-block text-white cursor-pointer p-2 rounded-md">{false ? <Loader /> : "Update Cart"}</div>} */}
       </div>
       <div className="p-10 border h-[24rem] flex-1 border-gray-500 flex flex-col justify-between rounded-md">
         <h2 className="text-3xl">Order Summary:</h2>
