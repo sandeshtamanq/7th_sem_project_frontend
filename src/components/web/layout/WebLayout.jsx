@@ -32,7 +32,7 @@ const WebLayout = ({ children }) => {
           </Link>
           {isLoggedIn ? (
             <div className="flex items-center justify-end">
-              <h6 className="">{`${user.firstName}`}</h6>
+              <h6 className="px-5">{`${user.firstName}`}</h6>
               <Link to="/cart">
                 <Cart />
               </Link>
@@ -43,20 +43,31 @@ const WebLayout = ({ children }) => {
               )}
               <DropDown open={open} setopen={setOpen}>
                 <div className="min-h-[2rem] w-[200px] right-[73px] rounded-md absolute z-[10] bg-slate-50 top-[4.5%] shadow-md border  ">
-                  <div className="">
-                    <li onClick={() => dispatch(openAction())} className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
-                      <FaEye />
-                      <Link to="/orders">View Order</Link>
-                    </li>
-                    <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
+                  <div onClick={() => dispatch(openAction())} className="">
+                    <Link to="/orders">
+                      <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
+                        <FaEye />
+                        View Order
+                        {/* <Link to="/orders">View Order</Link> */}
+                      </li>
+                    </Link>
+                    <li
+                      className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary"
+                      onClick={() => {
+                        localStorage.clear();
+                        authDispatch({ type: "LOGOUT" });
+                        dispatch(clearCart());
+                        navigate("/");
+                      }}
+                    >
                       <BiLogOutCircle />
                       <p
-                        onClick={() => {
-                          localStorage.clear();
-                          authDispatch({ type: "LOGOUT" });
-                          dispatch(clearCart());
-                          navigate("/");
-                        }}
+                      // onClick={() => {
+                      //   localStorage.clear();
+                      //   authDispatch({ type: "LOGOUT" });
+                      //   dispatch(clearCart());
+                      //   navigate("/");
+                      // }}
                       >
                         logout
                       </p>

@@ -23,13 +23,7 @@ const About = () => {
             more. Whether you're looking for the latest model or a
             budget-friendly option, we have something for everyone.
           </p>
-          <br />
-          <p>
-            In addition to mobile phones, we also carry a range of accessories
-            such as cases, screen protectors, chargers, and headphones to
-            enhance your mobile phone experience. Our accessories are carefully
-            selected to provide the best quality and value for our customers.
-          </p>
+          
           <br />
           <p>
             We take pride in our commitment to providing exceptional customer
