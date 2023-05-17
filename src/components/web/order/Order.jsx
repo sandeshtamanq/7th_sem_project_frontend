@@ -14,7 +14,6 @@ const ClientOrder = () => {
       setOrders(response?.data);
     }
   };
-  console.log(orders);
 
   useEffect(() => {
     fetchOrder();

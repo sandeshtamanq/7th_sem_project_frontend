@@ -5,12 +5,21 @@ import Infocard from "./integrate/Infocard";
 import { FiUsers } from "react-icons/fi";
 import Table from "../static/Table";
 import Chart from "react-apexcharts";
-import { getUserStat } from "../../../api/users/getUserStat";
+import { getDashboardStat } from "../../../api/dashboard/getDashboardStat";
+import dayjs from "dayjs";
+// import { TbCurrencyRupeeNepalese } from "react-icons/tb";
+import { BsFillBagCheckFill } from "react-icons/bs";
+import { GiTwoCoins } from "react-icons/gi";
 export const tableHeaders = ["Full Name", "Address", "Contact", "Email", "Created At", "Role"];
 
 function Dashboard() {
-  const [data, setData] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [data, setData] = useState(["0"]);
+  const [category, setCategory] = useState(["start"]);
+  const [summary, setSummary] = useState({
+    totalUsers: 0,
+    totalRevenue: "",
+    totalOrders: 0,
+  });
   const [tab, setTab] = useState("user");
   const navigate = useNavigate();
   const [users, setUsers] = useState({
@@ -37,18 +46,26 @@ function Dashboard() {
       localStorage.clear();
     }
   };
-  const fetchUserStat = async () => {
-    const response = await getUserStat();
+
+  const fetchDashboardStat = async () => {
+    const response = await getDashboardStat();
     if (response.status === 200) {
-      const data = response.data.reduce((acc, current) => [...acc, ...current["number_of_users"]], ["0"]);
+      const data = response.data.userData.reduce((acc, current) => [...acc, ...current["userCount"]], ["0"]);
       setData(data);
-      const category = response.data.reduce((acc, current) => [...acc, current["day"].split("T")[0]], ["start"]);
+      const category = response.data.userData.reduce((acc, current) => [...acc, dayjs(current["date"]).format("YYYY-MM-DD")], ["start"]);
+      // const category = response.data.userData.map((user) => dayjs(user.date).format("YYYY-MM-DD"));
       setCategory(category);
+
+      setSummary({
+        totalOrders: response.data.totalOrders,
+        totalRevenue: response.data.totalReveneu,
+        totalUsers: response.data.totalUsers,
+      });
     }
   };
   useEffect(() => {
     fetchUsers();
-    fetchUserStat();
+    fetchDashboardStat();
   }, []);
 
   const series = [
@@ -70,10 +87,11 @@ function Dashboard() {
   return (
     <div>
       <div className="flex items-center w-full">
-        <Infocard number={users.totalUser} heading={"Total Users"} background={"bg-red-400"} icon={<FiUsers />} />
-        <Infocard number={users.totalUser} background={"bg-red-400"} />
-        <Infocard number={users.totalUser} background={"bg-red-400"} />
+        <Infocard number={summary.totalUsers} heading={"Total Users"} background={"bg-red-400"} icon={<FiUsers />} />
+        <Infocard number={summary.totalRevenue} heading={"Total Revenue"} background={"bg-green-400"} icon={<GiTwoCoins />} />
+        <Infocard number={summary.totalOrders} heading="Total Orders" background={"bg-orange-400"} icon={<BsFillBagCheckFill />} />
       </div>
+      <h2 className="mt-10">User Graph:</h2>
       <Chart options={options} series={series} type="line" width={"50%"} />
       <div className="mt-10">
         <div className="flex justify-end items-center gap-x-5 py-2">

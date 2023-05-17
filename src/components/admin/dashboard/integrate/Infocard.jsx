@@ -1,5 +1,5 @@
 import React from "react";
-const Infocard = ({ number, background, icon, heading }) => {
+const Infocard = ({ number, background, icon, heading, revenue }) => {
   return (
     <div className={`text-white ${background} rounded-md px-10 py-4 h-[10rem] flex-1 border shadow-md`}>
       <h1>{heading}</h1>
