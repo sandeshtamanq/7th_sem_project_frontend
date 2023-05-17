@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
 import DropDown from "../../../common/DropDown";
 import { getAllBrands } from "../../../../api/brand/brand";
-import { addProducts } from "../../../../api/products/addProducts";
 import RichTextEditor from "../../../common/RichTextEditor";
-import Loader from "../../../common/Loader";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getSingleProduct } from "../../../../api/products/getSingleProduct";
-const AddProduct = () => {
-  const navigate = useNavigate();
+import { updateProduct } from "../../../../api/products/updateProduct";
+
+const EditProduct = () => {
+  const { id } = useParams();
   const [brands, setBrands] = useState([]);
   const [productDescription, setProductDescription] = useState("");
   const [loading, setLoading] = useState(false);
+
   const [productDetail, setProductDetail] = useState({
     productName: "",
     productPrice: "",
     productAmount: "",
     brandName: "Select One",
   });
-  const [productImage, setProductImage] = useState("");
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const response = await updateProduct(productDetail, id);
+  };
 
   const fetchBrands = async () => {
     const response = await getAllBrands();
@@ -25,8 +29,21 @@ const AddProduct = () => {
       setBrands(response.data);
     }
   };
+
+  const fetchSingleProduct = async (id) => {
+    const response = await getSingleProduct(id);
+    if (response.status === 200) {
+      setProductDescription(response.data.productDescription);
+      setProductDetail({
+        ...response.data,
+        brandName: response.data.brandName.brandName,
+      });
+    }
+  };
+
   useEffect(() => {
     fetchBrands();
+    fetchSingleProduct(id);
   }, []);
 
   const changeHandler = (e) => {
@@ -39,26 +56,6 @@ const AddProduct = () => {
     });
   };
 
-  const postProduct = async (formData) => {
-    setLoading(true);
-    const response = await addProducts(formData);
-    if (response.status === 201) {
-      setLoading(false);
-      navigate("/admin/product");
-    }
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("productName", productDetail.productName);
-    formData.append("productDescription", productDescription);
-    formData.append("productPrice", productDetail.productPrice);
-    formData.append("productAmount", productDetail.productAmount);
-    formData.append("productImage", productImage);
-    formData.append("brandName", productDetail.brandName);
-    postProduct(formData);
-  };
   return (
     <div className="p-5">
       <form onSubmit={submitHandler}>
@@ -106,6 +103,7 @@ const AddProduct = () => {
         </div>
         <div className="mt-5">
           {/* <label htmlFor="productImage">Product Image</label>s */}
+          <img src={productDetail.productImage} alt="" className="h-[10rem] w-[13rem]" />
           <input
             type="file"
             name="productImage"
@@ -114,10 +112,10 @@ const AddProduct = () => {
             }}
           />
         </div>
-        <button className="text-white bg-secondary px-2 py-1 rounded-lg my-4">{loading ? <Loader /> : "Add Product"}</button>
+        <button className="text-white bg-secondary px-2 py-1 rounded-lg my-4">{loading ? <Loader /> : "Update Product"}</button>
       </form>
     </div>
   );
 };
 
-export default AddProduct;
+export default EditProduct;

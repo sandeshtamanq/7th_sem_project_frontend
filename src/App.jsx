@@ -19,6 +19,7 @@ import Order from "./components/admin/order/Order";
 import ContactUs from "./components/web/contact-us/ContactUs";
 import AboutUs from "./components/web/about-us/AboutUs";
 import ClientOrder from "./components/web/order/Order";
+import EditProduct from "./components/admin/products/integrate/EditProduct";
 
 function App() {
   const { isLoggedIn } = useAuthContext();
@@ -107,6 +108,16 @@ function App() {
         <Layout>
           <ProtectedRoutes>
             <Users />
+          </ProtectedRoutes>
+        </Layout>
+      ),
+    },
+    {
+      path: "/admin/:id/edit",
+      element: (
+        <Layout>
+          <ProtectedRoutes>
+            <EditProduct />
           </ProtectedRoutes>
         </Layout>
       ),

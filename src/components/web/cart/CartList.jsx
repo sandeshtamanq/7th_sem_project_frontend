@@ -30,7 +30,7 @@ const CartList = () => {
       setLoading(false);
       successToast("Order placed successfully");
       dispatch(clearCart());
-      fetchCartItems();
+      navigate("/orders");
       return;
     }
     if (res.status === 400) {

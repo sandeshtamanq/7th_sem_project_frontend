@@ -52,7 +52,9 @@ const Product = () => {
                     <div className="rounded-md bg-red-500 py-1 px-2 text-white cursor-pointer" onClick={() => removeProduct(id)}>
                       Delete
                     </div>
-                    <div className="rounded-md bg-blue-500 text-white py-1 px-2">Edit</div>
+                    <Link to={`/admin/${id}/edit`} className="rounded-md bg-blue-500 text-white py-1 px-2">
+                      Edit
+                    </Link>
                   </div>
                 </td>
               </tr>
