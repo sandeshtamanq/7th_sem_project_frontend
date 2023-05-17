@@ -52,8 +52,9 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center w-full">
-      <div className="p-4 border border-gray-300 mt-40">
+    <div className="flex items-center justify-center w-full flex-col">
+       <h1 className="my-5">Register</h1>
+      <div className="p-4 border border-gray-300 rounded-md">
         <form className="space-y-5" onSubmit={submitHandler}>
           <div className="flex items-start justify-between gap-x-2">
             <div className="flex-1">

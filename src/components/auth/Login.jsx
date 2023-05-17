@@ -78,7 +78,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full mt-40">
+    <div className="flex items-center justify-center w-full flex-col">
+      <h1 className="my-5">Login</h1>
       {/* <img src={loginImage} alt="" /> */}
       <div className="border-gray-300 border p-5 rounded-md">
         {err && <p className="text-red-500">{err}</p>}
