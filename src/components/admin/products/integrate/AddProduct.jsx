@@ -3,9 +3,13 @@ import DropDown from "../../../common/DropDown";
 import { getAllBrands } from "../../../../api/brand/brand";
 import { addProducts } from "../../../../api/products/addProducts";
 import RichTextEditor from "../../../common/RichTextEditor";
+import Loader from "../../../common/Loader";
+import { useNavigate } from "react-router-dom";
 const AddProduct = () => {
+  const navigate = useNavigate();
   const [brands, setBrands] = useState([]);
   const [productDescription, setProductDescription] = useState("");
+  const [loading, setLoading] = useState(false);
   const [productDetail, setProductDetail] = useState({
     productName: "",
     productPrice: "",
@@ -34,14 +38,16 @@ const AddProduct = () => {
   };
 
   const postProduct = async (formData) => {
+    setLoading(true);
     const response = await addProducts(formData);
     if (response.status === 201) {
+      setLoading(false);
+      navigate("/admin/product");
     }
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(productImage);
     const formData = new FormData();
     formData.append("productName", productDetail.productName);
     formData.append("productDescription", productDescription);
@@ -106,7 +112,10 @@ const AddProduct = () => {
             }}
           />
         </div>
-        <button className="text-white bg-secondary px-2 py-1 rounded-lg my-4">Add Product</button>
+        <button className="text-white bg-secondary px-2 py-1 rounded-lg my-4">
+          {loading ? <Loader /> : "Add Product"}
+          Add Product
+        </button>
       </form>
     </div>
   );
