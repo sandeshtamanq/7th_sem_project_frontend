@@ -88,7 +88,7 @@ function Dashboard() {
     <div>
       <div className="flex items-center w-full">
         <Infocard number={summary.totalUsers} heading={"Total Users"} background={"bg-red-400"} icon={<FiUsers />} />
-        <Infocard number={summary.totalRevenue} heading={"Total Revenue"} background={"bg-green-400"} icon={<GiTwoCoins />} />
+        <Infocard number={summary.totalRevenue} heading={"Total Revenue"} background={"bg-green-400"} reveneu={true} icon={<GiTwoCoins />} />
         <Infocard number={summary.totalOrders} heading="Total Orders" background={"bg-orange-400"} icon={<BsFillBagCheckFill />} />
       </div>
       <h2 className="mt-10">User Graph:</h2>
