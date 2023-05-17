@@ -78,7 +78,7 @@ const Brand = () => {
                     <div className="rounded-md bg-red-500 py-1 px-2 text-white cursor-pointer" onClick={() => removeBrand(id)}>
                       Delete
                     </div>
-                    <div className="rounded-md bg-blue-500 text-white py-1 px-2">Edit</div>
+                    {/* <div className="rounded-md bg-blue-500 text-white py-1 px-2">Edit</div> */}
                   </div>
                 </td>
               </tr>
