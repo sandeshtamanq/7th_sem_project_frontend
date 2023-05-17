@@ -36,8 +36,7 @@
   [type="time"],
   [type="week"],
   [type="date"] [multiple],
-  textarea,
-  select {
+  textarea {
     @apply px-5 py-2 2xl:py-2 w-full rounded-lg 2xl:rounded-xl text-black border placeholder-gray-500  mt-2 text-sm 2xl:text-base;
   }
 }

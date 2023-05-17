@@ -19,7 +19,7 @@ const ClientOrder = () => {
     fetchOrder();
   }, []);
 
-  const tableHeaders = ["id", "Payment", "Payment Type", "Product", "Total"];
+  const tableHeaders = ["id", "Payment", "Payment Type", "Product", "Total", "Delivery Status"];
 
   return (
     <>
@@ -27,7 +27,7 @@ const ClientOrder = () => {
         <div>fetching...</div>
       ) : (
         <Table headerData={tableHeaders}>
-          {orders.map(({ payment, paymentMode, products, totalSum }, index) => (
+          {orders.map(({ payment, paymentMode, products, totalSum, deliveryStatus }, index) => (
             <tr className="bg-gray-200 text-black" key={index}>
               <td className="px-6 py-4">{index + 1}</td>
               <td className="px-6 py-4">{payment ? "Done" : "Pending"}</td>
@@ -38,6 +38,7 @@ const ClientOrder = () => {
                 })}
               </td>
               <td className="px-6 py-4">Rs.{totalSum}</td>
+              <td className="px-6 py-4">{deliveryStatus}</td>
             </tr>
           ))}
           {orders.length <= 0 && <div className=" p-4 text-black">No any order</div>}

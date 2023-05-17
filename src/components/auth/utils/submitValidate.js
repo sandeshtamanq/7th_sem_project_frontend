@@ -70,4 +70,13 @@ export const submitValidate = (registerCredentials, setRegisterError) => {
       };
     });
   }
+
+  if (registerCredentials.address === "") {
+    setRegisterError((prev) => {
+      return {
+        ...prev,
+        address: "This field cannot be empty",
+      };
+    });
+  }
 };

@@ -6,9 +6,12 @@ import RichTextEditor from "../../../common/RichTextEditor";
 import Loader from "../../../common/Loader";
 import { useNavigate } from "react-router-dom";
 import { getSingleProduct } from "../../../../api/products/getSingleProduct";
+import { useDispatch } from "react-redux";
+import { openAction } from "../../../../redux/reducers/openReducer";
 const AddProduct = () => {
   const navigate = useNavigate();
   const [brands, setBrands] = useState([]);
+  const dispatch = useDispatch();
   const [productDescription, setProductDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [productDetail, setProductDetail] = useState({
@@ -82,6 +85,7 @@ const AddProduct = () => {
                             brandName: brand.brandName,
                           };
                         });
+                        dispatch(openAction());
                       }}
                     >
                       {brand.brandName}

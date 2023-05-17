@@ -53,7 +53,7 @@ const Register = () => {
   };
   return (
     <div className="flex items-center justify-center w-full flex-col">
-       <h1 className="my-5">Register</h1>
+      <h1 className="my-5">Register</h1>
       <div className="p-4 border border-gray-300 rounded-md">
         <form className="space-y-5" onSubmit={submitHandler}>
           <div className="flex items-start justify-between gap-x-2">
@@ -78,7 +78,7 @@ const Register = () => {
             <div className="flex-1">
               <label htmlFor="number">Number*</label>
               <input onChange={changeHandler} type="number" name="contactNumber" id="number" placeholder="Enter Your Number" />
-              <p className="text-red-500">{registerError.number}</p>
+              <p className="text-red-500">{registerError.contactNumber}</p>
             </div>
           </div>
 
@@ -97,6 +97,7 @@ const Register = () => {
           <div>
             <label htmlFor="address">Address</label>
             <input onChange={changeHandler} type="text" name="address" id="address" placeholder="Enter Your Address" />
+            <p className="text-red-500">{registerError.address}</p>
           </div>
           <div className="flex gap-x-2 items-center">
             <button className="bg-secondary flex items-center justify-center px-4 py-2 w-1/2 text-slate-50 hover:shadow-md rounded-md" type="submit">
