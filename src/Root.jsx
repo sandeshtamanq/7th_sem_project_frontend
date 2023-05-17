@@ -23,7 +23,7 @@ const Root = ({ children }) => {
 
     //eslint-disable-next-line
   }, []);
-  return <div>{children}</div>;
+  return <div className="min-h-screen flex flex-col justify-between">{children}</div>;
 };
 
 export default Root;

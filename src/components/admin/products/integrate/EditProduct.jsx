@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import DropDown from "../../../common/DropDown";
 import { getAllBrands } from "../../../../api/brand/brand";
 import RichTextEditor from "../../../common/RichTextEditor";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getSingleProduct } from "../../../../api/products/getSingleProduct";
 import { updateProduct } from "../../../../api/products/updateProduct";
+import { successToast } from "../../../common/toastify";
+import Loader from "../../../common/Loader";
 
 const EditProduct = () => {
   const { id } = useParams();
   const [brands, setBrands] = useState([]);
   const [productDescription, setProductDescription] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const [productDetail, setProductDetail] = useState({
     productName: "",
     productPrice: "",
@@ -20,7 +22,13 @@ const EditProduct = () => {
   });
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const response = await updateProduct(productDetail, id);
+    if (response.status === 200) {
+      successToast("Product updated successfully");
+      setLoading(false);
+      navigate("/admin/product");
+    }
   };
 
   const fetchBrands = async () => {
@@ -36,7 +44,6 @@ const EditProduct = () => {
       setProductDescription(response.data.productDescription);
       setProductDetail({
         ...response.data,
-        brandName: response.data.brandName.brandName,
       });
     }
   };
@@ -64,7 +71,7 @@ const EditProduct = () => {
           <input type="text" name="productName" id="productName" placeholder="Enter Product Name" value={productDetail.productName} onChange={changeHandler} />
         </div>
         <div className="relative flex items-center my-4">
-          <div>{productDetail.brandName}</div>
+          <div>{productDetail.brandName.brandName}</div>
           <DropDown>
             <div className="h-[20rem] w-[200px] z-[100] left-0 rounded-md absolute overflow-y-scroll bg-slate-50 top-[100%] shadow-md border  ">
               {brands.map((brand, index) => {

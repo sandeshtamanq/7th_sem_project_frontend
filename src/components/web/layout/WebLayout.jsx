@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../static/Navbar";
 import { CiUser } from "react-icons/ci";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -12,10 +12,12 @@ import Cart from "../static/Cart";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../../redux/reducers/cartReducer";
 import { FaEye } from "react-icons/fa";
+import { openAction } from "../../../redux/reducers/openReducer";
 const WebLayout = ({ children }) => {
   const navigate = useNavigate();
   const { user, isLoggedIn } = useAuthContext();
   const { dispatch: authDispatch } = useAuthContext();
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   return (
     <Root>
@@ -39,10 +41,10 @@ const WebLayout = ({ children }) => {
                   dashboard
                 </Link>
               )}
-              <DropDown>
+              <DropDown open={open} setopen={setOpen}>
                 <div className="min-h-[2rem] w-[200px] right-[73px] rounded-md absolute z-[10] bg-slate-50 top-[4.5%] shadow-md border  ">
                   <div className="">
-                    <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
+                    <li onClick={() => dispatch(openAction())} className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
                       <FaEye />
                       <Link to="/orders">View Order</Link>
                     </li>

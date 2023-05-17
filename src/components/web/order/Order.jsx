@@ -24,24 +24,26 @@ const ClientOrder = () => {
 
   return (
     <>
-      {loading && <div>fetching...</div>}
-      {orders.length < 1 && !loading && <div>No order to show</div>}
-      <Table headerData={tableHeaders}>
-        {orders.map(({ payment, paymentMode, products, totalSum }, index) => (
-          <tr className="bg-gray-200 text-black" key={index}>
-            <td className="px-6 py-4">{index + 1}</td>
-            <td className="px-6 py-4">{payment ? "Done" : "Pending"}</td>
-            <td className="px-6 py-4">{paymentMode}</td>
-            <td>
-              {products.map((product, index) => {
-                return <Link to={`/product/${product.id}`}>{`${product.productName} ${!(products.length === index + 1) && ", "}`}</Link>;
-              })}
-            </td>
-            <td className="px-6 py-4">Rs.{totalSum}</td>
-          </tr>
-        ))}
-        {orders.length <= 0 && <div className=" p-4 text-black">No any order</div>}
-      </Table>
+      {loading ? (
+        <div>fetching...</div>
+      ) : (
+        <Table headerData={tableHeaders}>
+          {orders.map(({ payment, paymentMode, products, totalSum }, index) => (
+            <tr className="bg-gray-200 text-black" key={index}>
+              <td className="px-6 py-4">{index + 1}</td>
+              <td className="px-6 py-4">{payment ? "Done" : "Pending"}</td>
+              <td className="px-6 py-4">{paymentMode}</td>
+              <td>
+                {products.map((product, index) => {
+                  return <Link to={`/product/${product.id}`}>{`${product.productName} ${!(products.length === index + 1) ? ", " : ""}`}</Link>;
+                })}
+              </td>
+              <td className="px-6 py-4">Rs.{totalSum}</td>
+            </tr>
+          ))}
+          {orders.length <= 0 && <div className=" p-4 text-black">No any order</div>}
+        </Table>
+      )}
     </>
   );
 };

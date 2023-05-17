@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getProducts } from "../../../api/products/getProducts";
 import TableSkeleton from "../../skeletons/TableSkeleton";
 import Table from "../static/Table";
-import Modal from "../../common/Modal";
-import AddProduct from "./integrate/AddProduct";
+
 import { deleteProduct } from "../../../api/products/deleteProduct";
 import { Link } from "react-router-dom";
 const Product = () => {
