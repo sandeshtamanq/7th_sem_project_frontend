@@ -18,10 +18,6 @@ const HomeInfo = () => {
         <MdPayment className="h-20 w-20" />
         <p>Secure Payment</p>
       </div>
-      {/* <div className="flex flex-col items-center">
-        <GiReturnArrow className="h-20 w-20" />
-        <p>90 Days Return</p>
-      </div> */}
     </div>
   );
 };
