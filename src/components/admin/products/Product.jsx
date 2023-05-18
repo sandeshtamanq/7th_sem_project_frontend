@@ -5,6 +5,7 @@ import Table from "../static/Table";
 
 import { deleteProduct } from "../../../api/products/deleteProduct";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -42,7 +43,7 @@ const Product = () => {
                 <td className="px-6 py-4">{`Rs.${productPrice}`}</td>
                 <td className="px-6 py-4">{productAmount}</td>
                 <td className="px-6 py-4">{brandName?.brandName}</td>
-                <td className="px-6 py-4">{createdAt}</td>
+                <td className="px-6 py-4">{dayjs(createdAt).format("YYYY-MM-DD")}</td>
                 <td className="px-6 py-4">
                   <img className="h-[3rem] w-[3rem]" src={`${productImage}`} alt="" />
                 </td>

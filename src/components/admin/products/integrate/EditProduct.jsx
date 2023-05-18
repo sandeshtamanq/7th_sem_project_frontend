@@ -23,7 +23,7 @@ const EditProduct = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await updateProduct(productDetail, id);
+    const response = await updateProduct(productDetail, id, productDescription);
     if (response.status === 200) {
       successToast("Product updated successfully");
       setLoading(false);

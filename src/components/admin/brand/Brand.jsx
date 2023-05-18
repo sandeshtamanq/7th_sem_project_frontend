@@ -10,6 +10,7 @@ import { addBrand } from "../../../api/brand/addBrand";
 import Loader from "../../common/Loader";
 import { deleteBrand } from "../../../api/brand/removeBrand";
 import { successToast } from "../../common/toastify";
+import dayjs from "dayjs";
 
 const headerData = ["Id", "Brand Name", "Created At", "Action"];
 
@@ -72,7 +73,7 @@ const Brand = () => {
               <tr key={index} className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"}>
                 <td className="px-6 py-4">#{id}</td>
                 <td className="px-6 py-4">{brandName}</td>
-                <td className="px-6 py-4">{createdAt}</td>
+                <td className="px-6 py-4">{dayjs(createdAt).format("YYYY-MM-DD")}</td>
                 <td className="px-6 text-xs py-4">
                   <div className="flex items-center gap-x-4">
                     <div className="rounded-md bg-red-500 py-1 px-2 text-white cursor-pointer" onClick={() => removeBrand(id)}>
