@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "../../../api/api";
+import { getOrder } from "../../../api/order/getOrder";
 
-const OrderRow = ({ user: { firstName, lastName, email, contactNumber }, payment, paymentMode, products, totalSum, deliveryStatus, index, id }) => {
+const OrderRow = ({
+  user: { firstName, lastName, email, contactNumber },
+  payment,
+  paymentMode,
+  products,
+  totalSum,
+  deliveryStatus,
+  index,
+  id,
+}) => {
+  const [delivery, setDelivery] = useState(deliveryStatus);
   const updateStatus = async (value) => {
     try {
       const response = await api.patch(`/order/delivery-status/${id}`, {
@@ -15,12 +26,15 @@ const OrderRow = ({ user: { firstName, lastName, email, contactNumber }, payment
   const changeHandler = async (e) => {
     const response = await updateStatus(e.target.value);
     if (response.status === 200) {
-      console.log("done");
+      setDelivery("delivered");
     }
   };
   return (
     <>
-      <tr className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"} key={index}>
+      <tr
+        className={index % 2 === 0 ? "bg-primary" : "bg-secondary"}
+        key={index}
+      >
         <td className="px-6 py-4">{index + 1}</td>
         <td className="px-6 py-4">{`${firstName} ${lastName}`}</td>
         <td className="px-6 py-4">{email}</td>
@@ -34,7 +48,13 @@ const OrderRow = ({ user: { firstName, lastName, email, contactNumber }, payment
         </td>
         <td className="px-6 py-4">Rs.{totalSum}</td>
         <td className="px-6 py-4">
-          <select value={deliveryStatus} onChange={changeHandler} className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"} name="cars" id="cars">
+          <select
+            value={delivery}
+            onChange={changeHandler}
+            className={index % 2 === 0 ? "bg-primary" : "bg-secondary"}
+            name="cars"
+            id="cars"
+          >
             <option value="pending">pending</option>
             <option value="delivered">delivered</option>
           </select>

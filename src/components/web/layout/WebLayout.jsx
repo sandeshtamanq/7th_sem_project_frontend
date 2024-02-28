@@ -78,7 +78,10 @@ const WebLayout = ({ children }) => {
             </div>
           ) : (
             <div className="flex items-center border border-gray-300">
-              <NavLink to="/login" className={({ isActive }) => (isActive ? "bg-secondary" : "")}>
+              <NavLink
+                to="/login"
+                className={({ isActive }) => (isActive ? "bg-secondary" : "")}
+              >
                 <div className="flex items-center gap-x-2 cursor-pointer hover:bg-secondary px-4 py-2">
                   <CiUser />
                   Login

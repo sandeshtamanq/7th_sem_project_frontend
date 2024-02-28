@@ -1,4 +1,8 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import Layout from "./components/admin/layout/Layout";
 import WebLayout from "./components/web/layout/WebLayout";
@@ -20,6 +24,7 @@ import ContactUs from "./components/web/contact-us/ContactUs";
 import AboutUs from "./components/web/about-us/AboutUs";
 import ClientOrder from "./components/web/order/Order";
 import EditProduct from "./components/admin/products/integrate/EditProduct";
+import PurchaseConfirm from "./components/web/purchase/PurchaseConfirmation";
 
 function App() {
   const { isLoggedIn } = useAuthContext();
@@ -57,6 +62,14 @@ function App() {
       ),
     },
     {
+      path: "/purchase",
+      element: (
+        <WebLayout>
+          <PurchaseConfirm />
+        </WebLayout>
+      ),
+    },
+    {
       path: "/dashboard",
       element: (
         <Layout>
@@ -68,7 +81,9 @@ function App() {
     },
     {
       path: "/login",
-      element: <WebLayout>{isLoggedIn ? <Navigate to="/" /> : <Login />}</WebLayout>,
+      element: (
+        <WebLayout>{isLoggedIn ? <Navigate to="/" /> : <Login />}</WebLayout>
+      ),
     },
     {
       path: "/signup",

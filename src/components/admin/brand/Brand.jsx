@@ -64,19 +64,30 @@ const Brand = () => {
   return (
     <>
       <div>
-        <div onClick={() => setOpen(true)} className="cursor-pointer bg-secondary p-1 rounded-full inline-block  text-xs my-2 text-white">
+        <div
+          onClick={() => setOpen(true)}
+          className="cursor-pointer bg-secondary p-1 rounded-full inline-block  text-xs my-2 text-white"
+        >
           Add New
         </div>
         {brands.length > 0 ? (
           <Table headerData={headerData}>
             {brands.map(({ id, brandName, createdAt }, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"}>
+              <tr
+                key={index}
+                className={index % 2 === 0 ? "bg-primary" : "bg-secondary"}
+              >
                 <td className="px-6 py-4">#{id}</td>
                 <td className="px-6 py-4">{brandName}</td>
-                <td className="px-6 py-4">{dayjs(createdAt).format("YYYY-MM-DD")}</td>
+                <td className="px-6 py-4">
+                  {dayjs(createdAt).format("YYYY-MM-DD")}
+                </td>
                 <td className="px-6 text-xs py-4">
                   <div className="flex items-center gap-x-4">
-                    <div className="rounded-md bg-red-500 py-1 px-2 text-white cursor-pointer" onClick={() => removeBrand(id)}>
+                    <div
+                      className="rounded-md bg-red-500 py-1 px-2 text-white cursor-pointer"
+                      onClick={() => removeBrand(id)}
+                    >
                       Delete
                     </div>
                     {/* <div className="rounded-md bg-blue-500 text-white py-1 px-2">Edit</div> */}
@@ -94,10 +105,17 @@ const Brand = () => {
             <form className="space-y-5" onSubmit={handleSubmit(submitHandler)}>
               <div>
                 <label htmlFor="brandName">Brand Name:</label>
-                <input type="text" name="brandName" id="brandName" {...register("brandName")} />
+                <input
+                  type="text"
+                  name="brandName"
+                  id="brandName"
+                  {...register("brandName")}
+                />
                 <div className="text-red-500">{errors?.brandName?.message}</div>
               </div>
-              <button className="bg-secondary px-5 py-2 text-white rounded-md">{loading ? <Loader css="h-[1.5rem] w-[4.7rem]" /> : "Add Brand"}</button>
+              <button className="bg-secondary px-5 py-2 text-white rounded-md">
+                {loading ? <Loader css="h-[1.5rem] w-[4.7rem]" /> : "Add Brand"}
+              </button>
             </form>
           </div>
         </Modal>
@@ -111,7 +129,9 @@ const Brand = () => {
                 setPageNumber((preval) => preval - 1);
               }}
             >
-              <div className="px-3 py-2 block ml-0  leading-tight  border  rounded-l-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Previous</div>
+              <div className="px-3 py-2 block ml-0  leading-tight  border  rounded-l-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
+                Previous
+              </div>
             </li>
 
             {(() => {
@@ -120,7 +140,11 @@ const Brand = () => {
                 li.push(
                   <li key={i} onClick={() => setPageNumber(i)}>
                     <div
-                      className={`px-3 py-2 ${pageNumber === i ? "bg-gray-700 text-white" : "bg-gray-800 text-gray-400"} leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
+                      className={`px-3 py-2 ${
+                        pageNumber === i
+                          ? "bg-gray-700 text-white"
+                          : "bg-gray-800 text-gray-400"
+                      } leading-tight  border   border-gray-700  hover:bg-gray-700 hover:text-white`}
                     >
                       {i}
                     </div>
@@ -142,7 +166,9 @@ const Brand = () => {
                 setPageNumber((preval) => preval + 1);
               }}
             >
-              <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">Next</div>
+              <div className="px-3 py-2 block leading-tight  border  rounded-r-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
+                Next
+              </div>
             </li>
           </ul>
         </nav>

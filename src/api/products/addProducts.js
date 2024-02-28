@@ -2,7 +2,6 @@ import { errorToast, successToast } from "../../components/common/toastify";
 import api from "../api";
 
 export const addProducts = async (formData) => {
-  console.log(formData);
   try {
     const response = await api.post("/product", formData, {
       headers: {

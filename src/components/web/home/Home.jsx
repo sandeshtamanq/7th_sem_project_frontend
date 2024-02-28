@@ -11,7 +11,7 @@ const Home = () => {
     <div>
       <div className="h-[30rem] flex items-center justify-between">
         <div className=" text-center flex-1">
-          <h1 className="text-5xl">Get Your Phones now</h1>
+          <h1 className="text-5xl">Get Your laptops now</h1>
           <Link to="/products">
             <h5 className="mt-14 bg-secondary p-3 rounded-md inline-block cursor-pointer text-white">
               {/* <Link to="/products">Shop Now</Link> */}
@@ -20,8 +20,13 @@ const Home = () => {
           </Link>
         </div>
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/mobile-shop-7540e.appspot.com/o/hero-image%2F360_F_356062608_ViODs89KITc2uAwtPKh5iA12rGetiR13.jpg?alt=media&token=cbd0a00c-bf99-47be-9e07-3831a8c6eab1"
+          src="https://firebasestorage.googleapis.com/v0/b/mobile-shop-7540e.appspot.com/o/hero-image%2F1000_F_490009804_aS53LUj3vP5g7jh3BwLSNnByTzJhuDiT.jpg?alt=media&token=edf34ad9-19ae-48b4-b8c9-3a1ef6c003f3"
           alt=""
+          style={{
+            height: "400px",
+            width: "1000px",
+            objectFit: "contain",
+          }}
         />
       </div>
       {/* <HomeInfo /> */}
@@ -42,7 +47,10 @@ const Home = () => {
       <div className="w-[90%] m-auto">
         <ProductsContainer view="home" limit={8} />
         <div className="mt-5 px-3 py-2 flex items-center justify-center">
-          <Link to="/products" className="text-center  m-auto mt-5 px-3 py-2 bg-secondary rounded-md  text-white">
+          <Link
+            to="/products"
+            className="text-center  m-auto mt-5 px-3 py-2 bg-secondary rounded-md  text-white"
+          >
             View More
           </Link>
         </div>

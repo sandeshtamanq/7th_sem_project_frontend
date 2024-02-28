@@ -9,11 +9,13 @@ import { useDispatch } from "react-redux";
 import { clearCart } from "../../../redux/reducers/cartReducer";
 import CartListCard from "./integrate/CartListCard";
 import { updateCart } from "../../../api/cart/updateCart";
+import DropDown from "../../common/DropDown";
 
 const CartList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState("Cash on delivery");
   const [hasChanged, setHasChanged] = useState(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useAuthContext();
@@ -28,21 +30,32 @@ const CartList = () => {
 
   const postOrder = async (cartItems, subTotal) => {
     setLoading(true);
-    const res = await makeOrder(cartItems, subTotal);
-    if (res.status === 201) {
-      setLoading(false);
-      successToast("Order placed successfully");
-      dispatch(clearCart());
-      navigate("/orders");
-      return;
-    }
-    if (res.status === 400) {
-      errorToast("Please add product");
-      return;
-    }
 
-    setLoading(false);
-    errorToast("Something went wrong");
+    try {
+      const returnUrl = `${window.location.origin}/purchase`;
+      const websiteUrl = window.location.origin;
+      const res = await makeOrder(
+        cartItems,
+        subTotal,
+        paymentMethod,
+        returnUrl,
+        websiteUrl
+      );
+      if (res.status === 201) {
+        setLoading(false);
+        successToast("Order placed successfully");
+        dispatch(clearCart());
+        window.open(res.data.paymentUrl);
+        navigate("/orders");
+      }
+      if (res.status === 400) {
+        errorToast("Please add product");
+      }
+    } catch (err) {
+      errorToast("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -55,9 +68,17 @@ const CartList = () => {
   const patchCart = async (id, data) => {
     const response = await updateCart(id, data);
     if (response.status === 200) {
-      console.log("updated");
     }
   };
+
+  const paymentMode = [
+    {
+      name: "Cash on delivery",
+    },
+    {
+      name: "Khalti",
+    },
+  ];
 
   return (
     <div className="flex items-center p-32">
@@ -68,7 +89,15 @@ const CartList = () => {
           <>
             {cartItems.map((cartItem, index) => {
               const { product, amount } = cartItem;
-              return <CartListCard setHasChanged={setHasChanged} key={index} {...product} amount={amount} patchCart={patchCart} />;
+              return (
+                <CartListCard
+                  setHasChanged={setHasChanged}
+                  key={index}
+                  {...product}
+                  amount={amount}
+                  patchCart={patchCart}
+                />
+              );
             })}
           </>
         )}
@@ -88,6 +117,15 @@ const CartList = () => {
           <div>Total:</div>
           <div>Rs.{subTotal}</div>
         </div>
+        <select
+          onChange={(e) => setPaymentMethod(e.target.value)}
+          className="shadow-lg p-2 rounded-md"
+          id="cars"
+        >
+          {paymentMode.map((payment) => (
+            <option value={payment.name}>{payment.name}</option>
+          ))}
+        </select>
         <div>
           {cartItems.length >= 1 && (
             <button

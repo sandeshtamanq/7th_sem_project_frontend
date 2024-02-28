@@ -16,20 +16,25 @@ const Navbar = () => {
   setInterval(updateTime, 1000);
   const { user } = useAuthContext();
   return (
-    <div className="bg-[#202020] border-b border-gray-500 px-4 py-3 text-white flex items-center justify-between w-full">
+    <div className="bg-primary border-b border-gray-500 px-4 py-3 text-white flex items-center justify-between w-full">
       <div>
         {/* <div>Welcome</div> */}
         <Link to="/">Shop</Link>
       </div>
       <div className="text-center">{currentTime}</div>
       <div className="flex items-center gap-x-4">
-        <div className="bg-secondary rounded-full  px-[10px] py-[3px]">{user?.firstName[0]}</div>
-        <div className="text-3xl cursor-pointer" onClick={()=>{
-          localStorage.clear();
-          authDispatch({ type: "LOGOUT" });
-                        dispatch(clearCart());
-                        navigate("/");
-        }}>
+        <div className="bg-secondary rounded-full  px-[10px] py-[3px]">
+          {user?.firstName[0]}
+        </div>
+        <div
+          className="text-3xl cursor-pointer"
+          onClick={() => {
+            localStorage.clear();
+            authDispatch({ type: "LOGOUT" });
+            dispatch(clearCart());
+            navigate("/");
+          }}
+        >
           <BiLogOutCircle />
         </div>
       </div>

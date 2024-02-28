@@ -15,19 +15,33 @@ const Order = () => {
       setRecentOrder(response?.data);
     }
   };
-  console.log(recentOrder);
 
   useEffect(() => {
     fetchRecentOrder();
   }, []);
-  const tableHeaders = ["id", "Name", "email", "Contact Number", "Payment", "Payment Mode", "Products", "Total Price", "Delivery Status"];
+  const tableHeaders = [
+    "id",
+    "Name",
+    "email",
+    "Contact Number",
+    "Payment",
+    "Payment Mode",
+    "Products",
+    "Total Price",
+    "Delivery Status",
+  ];
   return (
     <>
       <div>
         {!fetching ? (
           <Table headerData={tableHeaders}>
             {recentOrder.map((order, index) => (
-              <OrderRow {...order} index={index} key={index} />
+              <OrderRow
+                {...order}
+                fetchRecentOrder={fetchRecentOrder}
+                index={index}
+                key={index}
+              />
               // <tr className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"} key={index}>
               //   <td className="px-6 py-4">{index + 1}</td>
               //   <td className="px-6 py-4">{`${firstName} ${lastName}`}</td>
@@ -48,7 +62,9 @@ const Order = () => {
               //   </td>
               // </tr>
             ))}
-            {recentOrder.length <= 0 && <div className=" p-4 text-black">No any order</div>}
+            {recentOrder.length <= 0 && (
+              <div className=" p-4 text-black">No any order</div>
+            )}
           </Table>
         ) : (
           <TableSkeleton />
