@@ -42,25 +42,6 @@ const Order = () => {
                 index={index}
                 key={index}
               />
-              // <tr className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"} key={index}>
-              //   <td className="px-6 py-4">{index + 1}</td>
-              //   <td className="px-6 py-4">{`${firstName} ${lastName}`}</td>
-              //   <td className="px-6 py-4">{email}</td>
-              //   <td className="px-6 py-4">{contactNumber}</td>
-              //   <td className="px-6 py-4">{payment ? "Done" : "Pending"}</td>
-              //   <td className="px-6 py-4">{paymentMode}</td>
-              //   <td>
-              //     {products.map((product) => {
-              //       return <p>{product.productName}</p>;
-              //     })}
-              //   </td>
-              //   <td className="px-6 py-4">Rs.{totalSum}</td>
-              //   <td className="px-6 py-4">
-              //     <select className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-900"} name="cars" id="cars">
-              //       <option value="volvo">{deliveryStatus}</option>
-              //     </select>
-              //   </td>
-              // </tr>
             ))}
             {recentOrder.length <= 0 && (
               <div className=" p-4 text-black">No any order</div>

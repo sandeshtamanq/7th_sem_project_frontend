@@ -45,7 +45,9 @@ const CartList = () => {
         setLoading(false);
         successToast("Order placed successfully");
         dispatch(clearCart());
-        window.open(res.data.paymentUrl);
+        if (paymentMethod === "khalti") {
+          window.open(res.data.paymentUrl);
+        }
         navigate("/orders");
       }
       if (res.status === 400) {

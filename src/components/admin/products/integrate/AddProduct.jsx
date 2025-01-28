@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { getSingleProduct } from "../../../../api/products/getSingleProduct";
 import { useDispatch } from "react-redux";
 import { openAction } from "../../../../redux/reducers/openReducer";
+
 const AddProduct = () => {
   const navigate = useNavigate();
   const [brands, setBrands] = useState([]);
@@ -21,6 +22,7 @@ const AddProduct = () => {
     brandName: "Select One",
   });
   const [productImage, setProductImage] = useState("");
+  const [imagePreview, setImagePreview] = useState(null); // To store image preview URL
 
   const fetchBrands = async () => {
     const response = await getAllBrands();
@@ -28,6 +30,7 @@ const AddProduct = () => {
       setBrands(response.data);
     }
   };
+
   useEffect(() => {
     fetchBrands();
   }, []);
@@ -62,17 +65,33 @@ const AddProduct = () => {
     formData.append("brandName", productDetail.brandName);
     postProduct(formData);
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProductImage(file);
+    // Create a preview URL for the selected image
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+  };
+
   return (
     <div className="p-5">
       <form onSubmit={submitHandler}>
         <div>
           <label htmlFor="productName">Product Name</label>
-          <input type="text" name="productName" id="productName" placeholder="Enter Product Name" value={productDetail.productName} onChange={changeHandler} />
+          <input
+            type="text"
+            name="productName"
+            id="productName"
+            placeholder="Enter Product Name"
+            value={productDetail.productName}
+            onChange={changeHandler}
+          />
         </div>
-        <div className="relative flex items-center my-4">
-          <div>{productDetail.brandName}</div>
+        <div className="relative border  py-2 px-2 rounded-md flex items-center my-4">
+          <div className=" ">{productDetail.brandName}</div>
           <DropDown>
-            <div className="h-[20rem] w-[200px] z-[100] left-0 rounded-md absolute overflow-y-scroll bg-slate-50 top-[100%] shadow-md border  ">
+            <div className="h-[8rem] w-[200px] z-[100] left-0 rounded-md absolute overflow-y-scroll bg-slate-50 top-[100%] shadow-md border  ">
               {brands.map((brand, index) => {
                 return (
                   <div key={index} className="h-[2rem]">
@@ -98,27 +117,50 @@ const AddProduct = () => {
         </div>
         <div>
           <label htmlFor="productDescription">Product Description</label>
-          <RichTextEditor onChange={setProductDescription} value={productDescription} />
+          <RichTextEditor
+            onChange={setProductDescription}
+            value={productDescription}
+          />
         </div>
         <div>
           <label htmlFor="productPrice">Product Price</label>
-          <input type="number" name="productPrice" id="productPrice" placeholder="Enter Product Price" value={productDetail.productPrice} onChange={changeHandler} />
+          <input
+            type="number"
+            name="productPrice"
+            id="productPrice"
+            placeholder="Enter Product Price"
+            value={productDetail.productPrice}
+            onChange={changeHandler}
+          />
         </div>
         <div>
           <label htmlFor="productAmount">Product Amount</label>
-          <input type="number" name="productAmount" id="productAmount" placeholder="Enter Product Amount" value={productDetail.productAmount} onChange={changeHandler} />
-        </div>
-        <div className="mt-5">
-          {/* <label htmlFor="productImage">Product Image</label>s */}
           <input
-            type="file"
-            name="productImage"
-            onChange={(e) => {
-              setProductImage(e.target.files[0]);
-            }}
+            type="number"
+            name="productAmount"
+            id="productAmount"
+            placeholder="Enter Product Amount"
+            value={productDetail.productAmount}
+            onChange={changeHandler}
           />
         </div>
-        <button className="text-white bg-secondary px-2 py-1 rounded-lg my-4">{loading ? <Loader /> : "Add Product"}</button>
+        <div className="mt-5">
+          <label htmlFor="productImage"></label>
+          <input type="file" name="productImage" onChange={handleImageChange} />
+          {/* Image preview */}
+          {imagePreview && (
+            <div className="mt-4">
+              <img
+                src={imagePreview}
+                alt="Product Preview"
+                className="w-48 h-48 object-cover"
+              />
+            </div>
+          )}
+        </div>
+        <button className="text-white bg-secondary px-2 py-1 rounded-lg my-4">
+          {loading ? <Loader /> : "Add Product"}
+        </button>
       </form>
     </div>
   );

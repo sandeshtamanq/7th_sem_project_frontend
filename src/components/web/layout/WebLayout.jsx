@@ -33,48 +33,52 @@ const WebLayout = ({ children }) => {
           {isLoggedIn ? (
             <div className="flex items-center justify-end">
               <h6 className="px-5">{`${user.firstName}`}</h6>
-              <Link to="/cart">
-                <Cart />
-              </Link>
-              {user.role === "admin" && (
+              {user?.role !== "admin" && (
+                <Link to="/cart">
+                  <Cart />
+                </Link>
+              )}
+              {user?.role === "admin" && (
                 <Link to="/dashboard" className="mx-4 font-bold">
                   dashboard
                 </Link>
               )}
-              <DropDown open={open} setopen={setOpen}>
-                <div className="min-h-[2rem] w-[200px] right-[73px] rounded-md absolute z-[10] bg-slate-50 top-[4.5%] shadow-md border  ">
-                  <div onClick={() => dispatch(openAction())} className="">
-                    <Link to="/orders">
-                      <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
-                        <FaEye />
-                        View Order
-                        {/* <Link to="/orders">View Order</Link> */}
-                      </li>
-                    </Link>
-                    <li
-                      className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary"
-                      onClick={() => {
-                        localStorage.clear();
-                        authDispatch({ type: "LOGOUT" });
-                        dispatch(clearCart());
-                        navigate("/");
-                      }}
-                    >
-                      <BiLogOutCircle />
-                      <p
-                      // onClick={() => {
-                      //   localStorage.clear();
-                      //   authDispatch({ type: "LOGOUT" });
-                      //   dispatch(clearCart());
-                      //   navigate("/");
-                      // }}
+              {user?.role !== "admin" && (
+                <DropDown open={open} setopen={setOpen}>
+                  <div className="min-h-[2rem] w-[200px] right-[73px] rounded-md absolute z-[10] bg-slate-50 top-[4.5%] shadow-md border  ">
+                    <div onClick={() => dispatch(openAction())} className="">
+                      <Link to="/orders">
+                        <li className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary">
+                          <FaEye />
+                          View Order
+                          {/* <Link to="/orders">View Order</Link> */}
+                        </li>
+                      </Link>
+                      <li
+                        className="flex gap-x-2 items-center justify-start px-4 py-2  rounded-md hover:bg-secondary"
+                        onClick={() => {
+                          localStorage.clear();
+                          authDispatch({ type: "LOGOUT" });
+                          dispatch(clearCart());
+                          navigate("/");
+                        }}
                       >
-                        logout
-                      </p>
-                    </li>
+                        <BiLogOutCircle />
+                        <p
+                        // onClick={() => {
+                        //   localStorage.clear();
+                        //   authDispatch({ type: "LOGOUT" });
+                        //   dispatch(clearCart());
+                        //   navigate("/");
+                        // }}
+                        >
+                          logout
+                        </p>
+                      </li>
+                    </div>
                   </div>
-                </div>
-              </DropDown>
+                </DropDown>
+              )}
             </div>
           ) : (
             <div className="flex items-center border border-gray-300">

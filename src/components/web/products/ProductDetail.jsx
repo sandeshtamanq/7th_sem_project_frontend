@@ -7,7 +7,11 @@ import { errorToast } from "../../common/toastify";
 import { addToCart } from "../../../api/cart/addToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartProduct } from "../../../redux/reducers/cartReducer";
-import { fetchProductDetailAction, updateProductAmount, updateProductDetailAction } from "../../../redux/reducers/productDetailReducer";
+import {
+  fetchProductDetailAction,
+  updateProductAmount,
+  updateProductDetailAction,
+} from "../../../redux/reducers/productDetailReducer";
 import Loader from "../../common/Loader";
 
 const ProductDetail = () => {
@@ -17,7 +21,8 @@ const ProductDetail = () => {
   const [adding, setAdding] = useState(false);
   const dispatch = useDispatch();
   const [productDetail, setProductDetail] = useState({});
-  const { title, brand, productAmount, price, description, image, reviews } = useSelector((state) => state.productDetail);
+  const { title, brand, productAmount, price, description, image, reviews } =
+    useSelector((state) => state.productDetail);
   const fetchSingleProduct = async (id) => {
     try {
       setLoading(true);
@@ -44,16 +49,20 @@ const ProductDetail = () => {
     addToCart(productId, amount, setAdding);
     dispatch(addCartProduct(amount));
   };
-  const { isLoggedIn } = useAuthContext();
+  const { isLoggedIn, user } = useAuthContext();
   return (
     <>
       {loading ? (
         <div className="h-[20rem]">loading ...</div>
       ) : (
         <>
-          <div className="flex items-center bg-white w-[98%] gap-x-4 m-auto rounded-md">
+          <div className="flex items-center bg-white mt-5 w-[98%] gap-x-4 m-auto rounded-md">
             <div className="flex-1">
-              <img src={image} className="h-[40rem] object-cover" alt="" />
+              <img
+                src={image}
+                className=" w-[80%] h-[40rem] m-auto rounded-md object-cover"
+                alt=""
+              />
             </div>
             <div className="flex-1">
               <div className="flex flex-col p-5 gap-y-5 justify-between h-full">
@@ -63,8 +72,12 @@ const ProductDetail = () => {
                   <div>{brand}</div>
                 </div>
                 <div>Rs.{price}</div>
-                {productAmount > 0 ? <div>Quantity: {productAmount}</div> : <div className="text-red-500">Out of stock</div>}
-                {isLoggedIn && (
+                {productAmount > 0 ? (
+                  <div>Quantity: {productAmount}</div>
+                ) : (
+                  <div className="text-red-500">Out of stock</div>
+                )}
+                {isLoggedIn && user?.role !== "admin" && (
                   <div className="flex items-center gap-x-2">
                     <div className="flex items-center gap-x-2">
                       <div
@@ -80,7 +93,9 @@ const ProductDetail = () => {
                       >
                         -
                       </div>
-                      <div className="border rounded-md py-0.5 px-3">{amount}</div>
+                      <div className="border rounded-md py-0.5 px-3">
+                        {amount}
+                      </div>
                       <div
                         className="cursor-pointer"
                         onClick={() => {
@@ -99,7 +114,9 @@ const ProductDetail = () => {
                       className="bg-secondary text-white cursor-pointer p-2 rounded-md"
                       onClick={() => {
                         if (productDetail.productAmount < 1) {
-                          errorToast("Product is currently out of stock please check back later");
+                          errorToast(
+                            "Product is currently out of stock please check back later"
+                          );
                           return;
                         }
                         dispatch(updateProductDetailAction(amount));

@@ -30,9 +30,15 @@ const Review = ({ productDetail, id }) => {
   return (
     <>
       <div className="m-auto w-[90%] mt-10 p-4 rounded-md bg-white">
-        {isLoggedIn && (
+        {isLoggedIn && user?.role !== "admin" && (
           <form onSubmit={handleSubmit} className="flex items-center">
-            <input type="text" placeholder="Write a review" name="review" value={review} onChange={(e) => setReview(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Write a review"
+              name="review"
+              value={review}
+              onChange={(e) => setReview(e.target.value)}
+            />
             <button type="submit" className="w-40">
               Post Review
             </button>
@@ -43,7 +49,13 @@ const Review = ({ productDetail, id }) => {
           <div className="space-y-5 mt-4">
             {productDetail?.map((review, index) => (
               <div key={index}>
-                {user?.firstName === review?.user?.firstName ? <div>{"by You"}</div> : <div className="text-gray-600">by {review?.user?.firstName}</div>}
+                {user?.firstName === review?.user?.firstName ? (
+                  <div>{"by You"}</div>
+                ) : (
+                  <div className="text-gray-600">
+                    by {review?.user?.firstName}
+                  </div>
+                )}
                 <div>{review.review}</div>
               </div>
             ))}
